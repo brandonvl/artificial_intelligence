@@ -5,12 +5,10 @@
 class GameObject
 {
 public:
-	GameObject();
+	GameObject(const std::string &name) : _name(name) {};
 	~GameObject();
-	const std::string getName();
+	std::string getName() { return _name; }
 private:
 	std::string _name;
-	float _xPosition;
-	float _yPosition;
 };
 

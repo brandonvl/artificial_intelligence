@@ -11,9 +11,10 @@ class Graph
 public:
 	Graph();
 	virtual ~Graph();
-	void addEdge(const std::string &fromVert, const std::string &toVert);
-	void addVertex(const std::string &vertKey);
-	Vertex &getVertex(const std::string &vertKey);
+	void addEdge(const std::string &fromVert, const std::string &toVert, const int &weight);
+	void addVertex(const std::string &vertKey, const float &xPos, const float &yPos);
+	Vertex *getVertex(const std::string &vertKey);
+	std::map<std::string, Vertex*> getVertexes() { return _vertexMap; }
 private:
 	std::map<std::string, Vertex*> _vertexMap;
 };
