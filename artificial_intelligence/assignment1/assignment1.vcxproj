@@ -84,15 +84,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="AStarSearch.cpp" />
+    <ClCompile Include="Cow.cpp" />
+    <ClCompile Include="Drawer.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Rabbit.cpp" />
+    <ClCompile Include="RandomGenerator.cpp" />
     <ClCompile Include="Vertex.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AStarSearch.h" />
+    <ClInclude Include="Cow.h" />
+    <ClInclude Include="Drawer.h" />
     <ClInclude Include="Edge.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Graph.h" />
+    <ClInclude Include="Rabbit.h" />
+    <ClInclude Include="RandomGenerator.h" />
+    <ClInclude Include="Sprite.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

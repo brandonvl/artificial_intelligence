@@ -15,6 +15,7 @@ public:
 	void addVertex(const std::string &vertKey, const float &xPos, const float &yPos);
 	Vertex *getVertex(const std::string &vertKey);
 	std::map<std::string, Vertex*> getVertexes() { return _vertexMap; }
+	Vertex *getRandomVertex(const std::string &notKey);
 private:
 	std::map<std::string, Vertex*> _vertexMap;
 };

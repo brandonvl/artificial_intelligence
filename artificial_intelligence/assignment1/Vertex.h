@@ -12,7 +12,7 @@ public:
 	Vertex(const std::string &key, const float &xPos, const float &yPos) : _key(key), _xPos(xPos), _yPos(yPos), _data(nullptr) {};
 	virtual ~Vertex();
 	void addEdge(const std::string &destination, const int &weight);
-	void setData(GameObject &data) { _data = &data; }
+	void setData(GameObject &data);
 	void clearData() { _data = nullptr; }
 	GameObject *getData() { return _data; }
 	const std::string &getKey() { return _key; }
