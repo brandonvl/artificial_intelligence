@@ -7,6 +7,7 @@
 #include "Cow.h"
 #include "Rabbit.h"
 #include <memory>
+#include <list>
 
 Game::Game()
 {
@@ -93,7 +94,7 @@ void Game::draw()
 	std::map<int, Vertex*> vertexMap = _graph->getVertexes();
 	for (auto it : vertexMap) {
 
-		std::vector<Edge*> _edges = it.second->getEdges();
+		std::list<Edge*> _edges = _graph->getEdges();
 
 		for (auto edge : _edges) {
 			Vertex *destination = _graph->getVertex(edge->getDestination());
