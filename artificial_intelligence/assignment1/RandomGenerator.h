@@ -3,6 +3,7 @@
 #include <map>
 #include <string>
 #include <vector> 
+#include <list>
 
 class RandomGenerator
 {
@@ -15,6 +16,18 @@ public:
 			int rand = random(0, vect.size() - 1);
 			return vect[rand];
 		}
+		return nullptr;
+	}
+
+	template<typename T>
+	static const T &randomFromList(const std::list<T> &list) {
+		if (list.size() > 0) {
+			int rand = random(0, list.size() - 1);
+			auto it = list.begin();
+			std::advance(it, rand);
+			return *it;
+		}
+
 		return nullptr;
 	}
 

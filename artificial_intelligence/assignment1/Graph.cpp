@@ -14,26 +14,29 @@ Graph::~Graph()
 		delete it.second;
 }
 
-void Graph::addVertex(const std::string &vertKey, const float &xPos, const float &yPos)
+void Graph::addVertex(const int &vertKey, const float &xPos, const float &yPos)
 {
 	if (_vertexMap.find(vertKey) == _vertexMap.end()) {
 		_vertexMap.insert(std::make_pair(vertKey, new Vertex(vertKey,xPos,yPos)));
+		_edgeList.insert(std::make_pair(vertKey, std::list<Edge*>()));
 	}
 }
 
-void Graph::addEdge(const std::string &fromVert, const std::string &toVert, const int &weight)
+void Graph::addEdge(const int &fromVert, const int &toVert, const int &weight)
 {
 	if (_vertexMap.find(fromVert) != _vertexMap.end() && _vertexMap.find(toVert) != _vertexMap.end()) {
-		_vertexMap[toVert]->addEdge(fromVert, weight);
-		_vertexMap[fromVert]->addEdge(toVert, weight);
+		//_vertexMap[toVert]->addEdge(fromVert, weight);
+		//_vertexMap[fromVert]->addEdge(toVert, weight);
+		_edgeList[fromVert].push_back(new Edge(fromVert, toVert, weight));
+		_edgeList[toVert].push_back(new Edge(toVert, fromVert, weight));
 	}
 }
 
-Vertex *Graph::getRandomVertex(const std::string &notKey)
+Vertex *Graph::getRandomVertex(const int &notKey)
 {
 	Vertex *returnVertex = nullptr;
 	int retries = 0;
-	std::map<std::string, Vertex*>::const_iterator iterator;
+	std::map<int, Vertex*>::const_iterator iterator;
 
 	do
 	{
@@ -48,7 +51,7 @@ Vertex *Graph::getRandomVertex(const std::string &notKey)
 	return returnVertex;
 }
 
-Vertex *Graph::getVertex(const std::string &vertKey) 
+Vertex *Graph::getVertex(const int &vertKey) 
 {
 	return _vertexMap[vertKey];
 }

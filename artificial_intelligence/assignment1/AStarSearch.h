@@ -10,7 +10,7 @@ class Edge;
 class AStarSearch
 {
 public:
-	static std::vector<Vertex*> getShortestPath(const Graph &graph, const std::string &source, const std::string &target);
+	static std::vector<Vertex*> getShortestPath(const Graph &graph, const int &source, const int &target);
 private:
 	static AStarSearch &instance() {
 		static AStarSearch _instance;
@@ -19,12 +19,12 @@ private:
 	AStarSearch();
 	virtual ~AStarSearch();
 	void clear();
-	bool operator()(const std::string &left, const std::string &right);
+	bool operator()(const int &left, const int &right);
 
 	Graph *_graph;
 
-	std::vector<std::string> _GCosts;
-	std::vector<std::string> _FCosts;
+	std::vector<double> _GCosts;
+	std::vector<double> _FCosts;
 
 	std::vector<const Edge*> _ShortestPathTree;
 	std::vector<const Edge*> _SearchFrontier;

@@ -32,14 +32,13 @@ Game::Game()
 	_graph->addEdge(6, 5, 1);
 
 
-	GameObject *rabbit = new Rabbit();
-
 	_cow = new Cow();
+	_rabbit = new Rabbit();
 	_graph->getVertex(1)->setData(*_cow);
-	_graph->getVertex(3)->setData(*rabbit);
+	_graph->getVertex(6)->setData(*_rabbit);
 
 	_gameObjects.push_back(_cow);
-	_gameObjects.push_back(rabbit);
+	_gameObjects.push_back(_rabbit);
 }
 
 
@@ -94,7 +93,7 @@ void Game::draw()
 	std::map<int, Vertex*> vertexMap = _graph->getVertexes();
 	for (auto it : vertexMap) {
 
-		std::list<Edge*> _edges = _graph->getEdges();
+		std::list<Edge*> _edges = _graph->getEdges(it.second->getKey());
 
 		for (auto edge : _edges) {
 			Vertex *destination = _graph->getVertex(edge->getDestination());

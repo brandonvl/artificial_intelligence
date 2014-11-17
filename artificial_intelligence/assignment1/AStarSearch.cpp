@@ -24,17 +24,18 @@ void AStarSearch::clear()
 	_Target = "";
 }
 
-bool AStarSearch::operator()(const std::string &left, const std::string &right)
+bool AStarSearch::operator()(const int &left, const int &right)
 {
-	
+	Vertex *left = _graph->getVertex(left);
+	Vertex *right = _graph->getVertex(right);
 }
 
-std::vector<Vertex*> AStarSearch::getShortestPath(const Graph &graph, const std::string &source, const std::string &target)
+std::vector<Vertex*> AStarSearch::getShortestPath(const Graph &graph, const int &source, const int &target)
 {
 	AStarSearch instance = AStarSearch::instance();
 	instance.clear();
 	std::vector<Vertex*> path;
-	std::priority_queue<std::string, std::vector<std::string>, AStarSearch> pq;
+	//std::priority_queue<int, std::vector<int>, AStarSearch> pq;
 
 	return path;
 }

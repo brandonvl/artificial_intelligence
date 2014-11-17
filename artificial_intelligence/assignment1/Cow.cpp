@@ -31,9 +31,9 @@ void Cow::update(Game &game)
 void Cow::moveRandom(Game &game)
 {
 	if (!_rabbitFound) {
-		std::vector<Edge*> edges = getField()->getEdges();
+		std::list<Edge*> edges = game.getGraph().getEdges(getField()->getKey());
 
-		Edge *edge = RandomGenerator::randomFromVector<Edge*>(edges);
+		Edge *edge = RandomGenerator::randomFromList<Edge*>(edges);
 
 		if (edge != nullptr) {
 			Vertex *newPlace = game.getGraph().getVertex(edge->getDestination());
