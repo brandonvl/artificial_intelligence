@@ -26,8 +26,7 @@ void AStarSearch::clear()
 
 bool AStarSearch::operator()(const int &left, const int &right)
 {
-	Vertex *left = _graph->getVertex(left);
-	Vertex *right = _graph->getVertex(right);
+	return left > right;
 }
 
 std::vector<Vertex*> AStarSearch::getShortestPath(const Graph &graph, const int &source, const int &target)
@@ -35,7 +34,7 @@ std::vector<Vertex*> AStarSearch::getShortestPath(const Graph &graph, const int 
 	AStarSearch instance = AStarSearch::instance();
 	instance.clear();
 	std::vector<Vertex*> path;
-	//std::priority_queue<int, std::vector<int>, AStarSearch> pq;
+	//std::priority_queue<int>
 
 	return path;
 }
