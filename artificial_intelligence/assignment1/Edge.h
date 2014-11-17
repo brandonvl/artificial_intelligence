@@ -5,14 +5,17 @@
 class Edge
 {
 public:
-	Edge(const std::string &destination, const int &weight) : _destination(destination), _weight(weight) {};
+	Edge(const int &from ,const int &to, const int &weight) : _from(from), _to(to), _weight(weight) {};
 	virtual ~Edge() {};
-	std::string &getDestination() { return _destination; };
+	int &getSource() { return _from; }
+	int &getDestination() { return _to; };
 	int getWeight() { return _weight; }
 	void setWeight(const int &weight) { _weight = weight; }
-	void setDestination(std::string &destination) { _destination = destination; }
+	void setDestination(int &to) { _to = to; }
+	void setFrom(int &from) { _from = from; }
 private:
-	std::string _destination;
+	int _from;
+	int _to;
 	int _weight;
 
 };

@@ -1,6 +1,5 @@
 #pragma once
 
-#include <string>
 #include <map>
 
 class Vertex;
@@ -11,12 +10,12 @@ class Graph
 public:
 	Graph();
 	virtual ~Graph();
-	void addEdge(const std::string &fromVert, const std::string &toVert, const int &weight);
-	void addVertex(const std::string &vertKey, const float &xPos, const float &yPos);
-	Vertex *getVertex(const std::string &vertKey);
-	std::map<std::string, Vertex*> getVertexes() { return _vertexMap; }
-	Vertex *getRandomVertex(const std::string &notKey);
+	void addEdge(const int &fromVert, const int &toVert, const int &weight);
+	void addVertex(const int &vertKey, const float &xPos, const float &yPos);
+	Vertex *getVertex(const int &vertKey);
+	std::map<int, Vertex*> getVertexes() { return _vertexMap; }
+	Vertex *getRandomVertex(const int &notKey);
 private:
-	std::map<std::string, Vertex*> _vertexMap;
+	std::map<int, Vertex*> _vertexMap;
 };
 

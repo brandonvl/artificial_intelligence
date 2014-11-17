@@ -19,6 +19,9 @@ private:
 	AStarSearch();
 	virtual ~AStarSearch();
 	void clear();
+	bool operator()(const std::string &left, const std::string &right);
+
+	Graph *_graph;
 
 	std::vector<std::string> _GCosts;
 	std::vector<std::string> _FCosts;

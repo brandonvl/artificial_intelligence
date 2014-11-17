@@ -15,27 +15,27 @@ Game::Game()
 	_drawer->load("cow", R"(assets\cow.png)");
 	_drawer->load("rabbit", R"(assets\rabbit.png)");
 
-	_graph->addVertex("vert1", 100, 100);
-	_graph->addVertex("vert2", 250, 60);
-	_graph->addVertex("vert3", 100, 250);
-	_graph->addVertex("vert4", 400, 400);
-	_graph->addVertex("vert5", 700, 100);
-	_graph->addVertex("vert6", 700, 570);
+	_graph->addVertex(1, 100, 100);
+	_graph->addVertex(2, 250, 60);
+	_graph->addVertex(3, 100, 250);
+	_graph->addVertex(4, 400, 400);
+	_graph->addVertex(5, 700, 100);
+	_graph->addVertex(6, 700, 570);
 
-	_graph->addEdge("vert1", "vert2", 5);
-	_graph->addEdge("vert1", "vert3", 10);
-	_graph->addEdge("vert3", "vert4", 3);
-	_graph->addEdge("vert2", "vert3", 15);
-	_graph->addEdge("vert2", "vert5", 10);
-	_graph->addEdge("vert2", "vert6", 5);
-	_graph->addEdge("vert6", "vert5", 1);
+	_graph->addEdge(1, 2, 5);
+	_graph->addEdge(1, 3, 10);
+	_graph->addEdge(3, 4, 3);
+	_graph->addEdge(2, 3, 15);
+	_graph->addEdge(2, 5, 10);
+	_graph->addEdge(2, 6, 5);
+	_graph->addEdge(6, 5, 1);
 
 
 	GameObject *rabbit = new Rabbit();
 
 	_cow = new Cow();
-	_graph->getVertex("vert1")->setData(*_cow);
-	_graph->getVertex("vert3")->setData(*rabbit);
+	_graph->getVertex(1)->setData(*_cow);
+	_graph->getVertex(3)->setData(*rabbit);
 
 	_gameObjects.push_back(_cow);
 	_gameObjects.push_back(rabbit);
@@ -90,7 +90,7 @@ void Game::draw()
 {
 	_drawer->prepareForDraw();
 	_drawer->setDrawColor(0, 0, 0);
-	std::map<std::string, Vertex*> vertexMap = _graph->getVertexes();
+	std::map<int, Vertex*> vertexMap = _graph->getVertexes();
 	for (auto it : vertexMap) {
 
 		std::vector<Edge*> _edges = it.second->getEdges();
