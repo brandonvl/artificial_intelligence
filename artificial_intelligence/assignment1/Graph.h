@@ -18,6 +18,8 @@ public:
 	std::list<Edge*> getEdges(const int &key) { return _edgeList[key]; }
 	std::map<int, Vertex*> getVertexes() { return _vertexMap; }
 	Vertex *getRandomVertex(const int &notKey);
+
+	int numVertexes();
 private:
 	std::map<int, Vertex*> _vertexMap;
 	std::map<int, std::list<Edge*>> _edgeList;

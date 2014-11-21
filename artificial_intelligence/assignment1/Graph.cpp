@@ -55,3 +55,9 @@ Vertex *Graph::getVertex(const int &vertKey)
 {
 	return _vertexMap[vertKey];
 }
+
+
+int Graph::numVertexes()
+{
+	return (int)_vertexMap.size();
+}

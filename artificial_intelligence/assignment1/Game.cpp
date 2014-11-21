@@ -23,13 +23,13 @@ Game::Game()
 	_graph->addVertex(5, 700, 100);
 	_graph->addVertex(6, 700, 570);
 
-	_graph->addEdge(1, 2, 5);
-	_graph->addEdge(1, 3, 10);
-	_graph->addEdge(3, 4, 3);
-	_graph->addEdge(2, 3, 15);
-	_graph->addEdge(2, 5, 10);
-	_graph->addEdge(2, 6, 5);
-	_graph->addEdge(6, 5, 1);
+	_graph->addEdge(1, 2, 50000);
+	_graph->addEdge(1, 3, 100000);
+	_graph->addEdge(3, 4, 30000);
+	_graph->addEdge(2, 3, 150000);
+	_graph->addEdge(2, 5, 100000);
+	_graph->addEdge(2, 6, 50000);
+	_graph->addEdge(6, 5, 10000);
 
 
 	_cow = new Cow();
@@ -37,8 +37,9 @@ Game::Game()
 	_graph->getVertex(1)->setData(*_cow);
 	_graph->getVertex(6)->setData(*_rabbit);
 
-	_gameObjects.push_back(_cow);
 	_gameObjects.push_back(_rabbit);
+	_gameObjects.push_back(_cow);
+	
 }
 
 
