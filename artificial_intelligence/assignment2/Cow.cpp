@@ -27,6 +27,9 @@ void Cow::update(Game &game)
 			_path.pop();
 		}
 	}
+	else if (!_rabbitFound) {
+		moveRandom(game);
+	}
 }
 
 void Cow::moveRandom(Game &game)

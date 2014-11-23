@@ -71,8 +71,8 @@ std::stack<Vertex*> AStarSearch::getShortestPath(Graph &graph, const int &source
 	std::set<FCostContainer> openList;
 	std::vector<FCostContainer> _closedList;
 
-	std::vector<double> g_Costs = std::vector<double>(graph.numVertexes()+1);
-	std::vector<double> f_Costs = std::vector<double>(graph.numVertexes()+1);
+	std::vector<double> g_Costs = std::vector<double>(graph.numVertexes() + 1);
+	std::vector<double> f_Costs = std::vector<double>(graph.numVertexes() + 1);
 
 	g_Costs[source] = 0;
 	f_Costs[source] = instance.estimatedDistance(*graph.getVertex(source), *graph.getVertex(target));

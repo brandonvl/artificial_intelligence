@@ -71,8 +71,11 @@ void Game::run()
 
 void Game::update()
 {
-	for (auto obj : _gameObjects) {
-		obj->update(*this);
+	if (doTurn) {
+		for (auto obj : _gameObjects) {
+			obj->update(*this);
+		}
+		doTurn = false;
 	}
 }
 
@@ -86,7 +89,7 @@ void Game::handleEvents()
 		}
 		else if (event.type == SDL_KEYDOWN || event.type == SDL_MOUSEBUTTONDOWN) {
 			// do algorithm
-			_cow->moveRandom(*this);
+			doTurn = true;
 		}
 	}
 }
