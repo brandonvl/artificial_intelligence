@@ -82,7 +82,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AStarSearch.cpp" />
-    <ClCompile Include="BaseGameEntity.cpp" />
     <ClCompile Include="Cow.cpp" />
     <ClCompile Include="Drawer.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -101,6 +100,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Graph.h" />
+    <ClInclude Include="State.h" />
     <ClInclude Include="StateMachine.h" />
     <ClInclude Include="Rabbit.h" />
     <ClInclude Include="RandomGenerator.h" />

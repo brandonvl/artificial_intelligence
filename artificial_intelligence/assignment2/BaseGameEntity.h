@@ -11,7 +11,7 @@ private:
 	static int _nextValidId;
 
 public:
-	BaseGameEntity();
+	BaseGameEntity() { }
 	virtual ~BaseGameEntity() { }
 
 	virtual void update(Game &game) = 0;
