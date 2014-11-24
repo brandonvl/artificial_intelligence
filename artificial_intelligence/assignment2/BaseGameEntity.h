@@ -10,8 +10,11 @@ private:
 
 	static int _nextValidId;
 
+	void setID(int id) {
+
+	};
 public:
-	BaseGameEntity() { }
+	BaseGameEntity(int id) { setID(id); }
 	virtual ~BaseGameEntity() { }
 
 	virtual void update(Game &game) = 0;
