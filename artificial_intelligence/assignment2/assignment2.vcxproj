@@ -82,8 +82,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AStarSearch.cpp" />
+    <ClCompile Include="BaseGameEntity.cpp" />
     <ClCompile Include="Cow.cpp" />
     <ClCompile Include="Drawer.cpp" />
+    <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="main.cpp" />
@@ -97,14 +99,17 @@
     <ClInclude Include="Cow.h" />
     <ClInclude Include="Drawer.h" />
     <ClInclude Include="Edge.h" />
+    <ClInclude Include="EntityManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Graph.h" />
+    <ClInclude Include="MessageTypes.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateMachine.h" />
     <ClInclude Include="Rabbit.h" />
     <ClInclude Include="RandomGenerator.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="Telegram.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

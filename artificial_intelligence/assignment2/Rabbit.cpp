@@ -6,12 +6,13 @@
 
 Rabbit::~Rabbit()
 {
-
+	delete _stateMachine;
 }
 
 void Rabbit::update(Game &game)
 {
-
+	if (_stateMachine)
+		_stateMachine->update(game);
 }
 
 void Rabbit::moveRandom(Game &game)

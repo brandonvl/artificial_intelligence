@@ -2,14 +2,15 @@
 
 #include <string>
 #include <iostream>
+#include "BaseGameEntity.h"
 
 class Vertex;
 class Game;
 
-class GameObject
+class GameObject : public BaseGameEntity
 {
 public:
-	GameObject(const std::string &name) : _name(name) {};
+	GameObject(const int id,const std::string &name) : BaseGameEntity(id), _name(name) {};
 	~GameObject() {};
 	std::string getName() { return _name; }
 	Vertex *getField() { return _field; }

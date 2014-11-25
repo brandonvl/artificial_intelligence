@@ -10,9 +10,8 @@ private:
 
 	static int _nextValidId;
 
-	void setID(int id) {
+	void setID(int id);
 
-	};
 public:
 	BaseGameEntity(int id) { setID(id); }
 	virtual ~BaseGameEntity() { }
@@ -21,4 +20,3 @@ public:
 
 	int getId() const { return _id; }
 };
-

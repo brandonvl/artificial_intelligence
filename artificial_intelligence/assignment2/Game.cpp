@@ -8,6 +8,7 @@
 #include "Rabbit.h"
 #include <memory>
 #include <list>
+#include "EntityManager.h"
 
 Game::Game()
 {
@@ -37,7 +38,9 @@ Game::Game()
 
 
 	_cow = new Cow();
+	EntityMgr.registerEntity(_cow);
 	_rabbit = new Rabbit();
+	EntityMgr.registerEntity(_rabbit);
 	_graph->getVertex(1)->setData(*_cow);
 	_graph->getVertex(6)->setData(*_rabbit);
 

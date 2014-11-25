@@ -7,9 +7,11 @@
 #include "AStarSearch.h"
 #include "SDL.h"
 #include "Rabbit.h"
+#include "EntityManager.h"
 
 Cow::~Cow()
 {
+	delete _stateMachine;
 }
 
 void Cow::update(Game &game)
