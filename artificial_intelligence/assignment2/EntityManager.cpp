@@ -1,5 +1,5 @@
 #include "EntityManager.h"
-
+#include "BaseGameEntity.h"
 
 EntityManager::EntityManager()
 {
@@ -8,4 +8,26 @@ EntityManager::EntityManager()
 
 EntityManager::~EntityManager()
 {
+}
+
+void EntityManager::registerEntity(BaseGameEntity *entity)
+{
+	if (_entityMap.find(entity->getId()) == _entityMap.end())
+		_entityMap.insert(std::make_pair(entity->getId(), entity));
+}
+
+BaseGameEntity *EntityManager::getEntityFromId(int id) const
+{
+	auto it = _entityMap.find(id);
+
+	if (it != _entityMap.end())
+		return it->second;
+	else
+		return nullptr;
+}
+
+void EntityManager::removeEntity(BaseGameEntity *entity)
+{
+	if (_entityMap.find(entity->getId()) != _entityMap.end())
+		_entityMap.erase(entity->getId());
 }
