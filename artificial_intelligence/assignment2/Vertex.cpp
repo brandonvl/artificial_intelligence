@@ -11,8 +11,13 @@ void Vertex::setData(GameObject &data)
 	Vertex *prevField = data.getField();
 
 	if (prevField != nullptr)
-		prevField->clearData();
+		prevField->removeData(data);
 
-	_data = &data;
+	_data.insert(&data);
 	data.setField(this);
+}
+
+void Vertex::removeData(GameObject &data)
+{
+	_data.erase(&data);
 }

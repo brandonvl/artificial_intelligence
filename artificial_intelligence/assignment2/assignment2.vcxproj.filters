@@ -31,84 +31,102 @@
     <Filter Include="Source Files\states\rabbitStates">
       <UniqueIdentifier>{daf4fde1-51da-4ecf-af21-594bf0fe0df1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\model">
+      <UniqueIdentifier>{e02e9d2f-6cdd-48aa-bf59-e5813fbda5b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\helperclasses">
+      <UniqueIdentifier>{01ff9375-2256-491b-a06f-6f7288d63ae2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\model">
+      <UniqueIdentifier>{a4ed9d8f-d536-4af1-bb93-5d15b127179b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\helperclasses">
+      <UniqueIdentifier>{856690b7-eee8-471e-832b-93841f62d6d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\states\pillStates">
+      <UniqueIdentifier>{59060765-5182-44a2-8ade-789cfdcf6423}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\states\pillStates">
+      <UniqueIdentifier>{4829a057-5d26-4e5f-924d-389c462690c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\states\weaponStates">
+      <UniqueIdentifier>{e8a0112d-4deb-4a9e-8b74-a9c537d2e745}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\states\weaponStates">
+      <UniqueIdentifier>{a19c991d-079b-43e5-806f-27c3d1d4fb00}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Graph.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Vertex.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Drawer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AStarSearch.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Rabbit.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Cow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RandomGenerator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseGameEntity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EntityManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MessageDispatcher.cpp">
       <Filter>Source Files\states</Filter>
     </ClCompile>
+    <ClCompile Include="GlobalCowState.cpp">
+      <Filter>Source Files\states\cowStates</Filter>
+    </ClCompile>
+    <ClCompile Include="GlobalRabbitState.cpp">
+      <Filter>Source Files\states\rabbitStates</Filter>
+    </ClCompile>
+    <ClCompile Include="WanderingCowState.cpp">
+      <Filter>Source Files\states\cowStates</Filter>
+    </ClCompile>
+    <ClCompile Include="WanderingRabbitState.cpp">
+      <Filter>Source Files\states\rabbitStates</Filter>
+    </ClCompile>
+    <ClCompile Include="AStarSearch.cpp">
+      <Filter>Source Files\helperclasses</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseGameEntity.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="Cow.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawer.cpp">
+      <Filter>Source Files\helperclasses</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityManager.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="Graph.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="Rabbit.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="RandomGenerator.cpp">
+      <Filter>Source Files\helperclasses</Filter>
+    </ClCompile>
+    <ClCompile Include="Vertex.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="Pill.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="ChaseCowState.cpp">
+      <Filter>Source Files\states\cowStates</Filter>
+    </ClCompile>
+    <ClCompile Include="GlobalPillState.cpp">
+      <Filter>Source Files\states\pillStates</Filter>
+    </ClCompile>
+    <ClCompile Include="GlobalWeaponState.cpp">
+      <Filter>Source Files\states\weaponStates</Filter>
+    </ClCompile>
+    <ClCompile Include="HighAwarenessRabbitState.cpp">
+      <Filter>Source Files\states\rabbitStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Graph.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vertex.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Edge.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Drawer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AStarSearch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprite.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Rabbit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Cow.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RandomGenerator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="StateMachine.h">
       <Filter>Header Files\states</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseGameEntity.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="State.h">
       <Filter>Header Files\states</Filter>
@@ -119,11 +137,77 @@
     <ClInclude Include="Telegram.h">
       <Filter>Header Files\states</Filter>
     </ClInclude>
-    <ClInclude Include="EntityManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MessageDispatcher.h">
       <Filter>Header Files\states</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalCowState.h">
+      <Filter>Header Files\states\cowStates</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalRabbitState.h">
+      <Filter>Header Files\states\rabbitStates</Filter>
+    </ClInclude>
+    <ClInclude Include="WanderingCowState.h">
+      <Filter>Header Files\states\cowStates</Filter>
+    </ClInclude>
+    <ClInclude Include="WanderingRabbitState.h">
+      <Filter>Header Files\states\rabbitStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="Cow.h">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseGameEntity.h">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="Rabbit.h">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="AStarSearch.h">
+      <Filter>Header Files\helperclasses</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityManager.h">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomGenerator.h">
+      <Filter>Header Files\helperclasses</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="Graph.h">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="Edge.h">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawer.h">
+      <Filter>Header Files\helperclasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Header Files\helperclasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Pill.h">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="ChaseCowState.h">
+      <Filter>Header Files\states\cowStates</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalPillState.h">
+      <Filter>Header Files\states\pillStates</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalWeaponState.h">
+      <Filter>Header Files\states\weaponStates</Filter>
+    </ClInclude>
+    <ClInclude Include="HighAwarenessRabbitState.h">
+      <Filter>Header Files\states\rabbitStates</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

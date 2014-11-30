@@ -83,29 +83,46 @@
   <ItemGroup>
     <ClCompile Include="AStarSearch.cpp" />
     <ClCompile Include="BaseGameEntity.cpp" />
+    <ClCompile Include="ChaseCowState.cpp" />
     <ClCompile Include="Cow.cpp" />
     <ClCompile Include="Drawer.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GlobalCowState.cpp" />
+    <ClCompile Include="GlobalPillState.cpp" />
+    <ClCompile Include="GlobalRabbitState.cpp" />
+    <ClCompile Include="GlobalWeaponState.cpp" />
     <ClCompile Include="Graph.cpp" />
+    <ClCompile Include="HighAwarenessRabbitState.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MessageDispatcher.cpp" />
+    <ClCompile Include="Pill.cpp" />
     <ClCompile Include="Rabbit.cpp" />
     <ClCompile Include="RandomGenerator.cpp" />
     <ClCompile Include="Vertex.cpp" />
+    <ClCompile Include="WanderingCowState.cpp" />
+    <ClCompile Include="WanderingRabbitState.cpp" />
+    <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AStarSearch.h" />
     <ClInclude Include="BaseGameEntity.h" />
+    <ClInclude Include="ChaseCowState.h" />
     <ClInclude Include="Cow.h" />
     <ClInclude Include="Drawer.h" />
     <ClInclude Include="Edge.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GlobalCowState.h" />
+    <ClInclude Include="GlobalPillState.h" />
+    <ClInclude Include="GlobalRabbitState.h" />
+    <ClInclude Include="GlobalWeaponState.h" />
     <ClInclude Include="Graph.h" />
+    <ClInclude Include="HighAwarenessRabbitState.h" />
     <ClInclude Include="MessageDispatcher.h" />
     <ClInclude Include="MessageTypes.h" />
+    <ClInclude Include="Pill.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateMachine.h" />
     <ClInclude Include="Rabbit.h" />
@@ -113,6 +130,9 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Telegram.h" />
     <ClInclude Include="Vertex.h" />
+    <ClInclude Include="WanderingCowState.h" />
+    <ClInclude Include="WanderingRabbitState.h" />
+    <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

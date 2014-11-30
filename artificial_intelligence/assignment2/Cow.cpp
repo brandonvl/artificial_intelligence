@@ -8,15 +8,24 @@
 #include "SDL.h"
 #include "Rabbit.h"
 #include "EntityManager.h"
+#include "GlobalCowState.h"
+#include "WanderingCowState.h"
 
 Cow::~Cow()
 {
 	delete _stateMachine;
 }
 
+void Cow::makeMachine(Game &game)
+{
+	_stateMachine = new StateMachine<Cow>(this, game);
+	_stateMachine->setGlobalState(&GlobalCowState::instance());
+	_stateMachine->changeState(&WanderingCowState::instance());
+}
+
 void Cow::update(Game &game)
 {
-	if (_rabbitFound && !_pathPrinted) {
+	/*if (_rabbitFound && !_pathPrinted) {
 		std::cout << "Rabbit found!" << std::endl;
 		_pathPrinted = true;
 		_path = AStarSearch::getShortestPath(game.getGraph(), getField()->getKey(), game.getRabbit().getField()->getKey());
@@ -31,32 +40,16 @@ void Cow::update(Game &game)
 	}
 	else if (!_rabbitFound) {
 		moveRandom(game);
-	}
+	}*/
+
+	_stateMachine->update();
 }
 
-void Cow::moveRandom(Game &game)
+bool Cow::handleMessage(const Telegram &msg)
 {
-	if (!_rabbitFound) {
-		std::list<Edge*> edges = game.getGraph().getEdges(getField()->getKey());
-
-		Edge *edge = RandomGenerator::randomFromList<Edge*>(edges);
-
-		if (edge != nullptr) {
-			Vertex *newPlace = game.getGraph().getVertex(edge->getDestination());
-
-			if (newPlace != nullptr) {
-				GameObject *objData = newPlace->getData();
-
-				if (objData != nullptr) {
-					if (objData->getName() == "rabbit") {
-						_rabbitFound = true;
-						objData->moveRandom(game);
-					}
-				}
-
-				newPlace->setData(*this);
-			}
-				
-		}
+	if (_stateMachine) {
+		return _stateMachine->handleMessage(msg);
 	}
+	else
+		return false;
 }

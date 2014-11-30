@@ -17,10 +17,11 @@ MessageDispatcher::~MessageDispatcher()
 
 void MessageDispatcher::discharge(BaseGameEntity *receiver, const Telegram &msg)
 {
-
+	if (receiver)
+		receiver->handleMessage(msg);
 }
 
-void MessageDispatcher::dispatchMessage(const long long &delay, const int &sender, const int &receiver, MessageType &msg, void *extraInfo)
+void MessageDispatcher::dispatchMessage(const long long &delay, const int &sender, const int &receiver, const MessageType &msg, void *extraInfo)
 {
 	BaseGameEntity *receiveEntity = EntityMgr.getEntityFromId(receiver);
 
@@ -42,5 +43,16 @@ void MessageDispatcher::dispatchMessage(const long long &delay, const int &sende
 
 void MessageDispatcher::dispatchDelayedMessages()
 {
+	auto currentTime = std::chrono::seconds(std::time(nullptr));
 
+	while (!_priorityQ.empty() && _priorityQ.begin()->dispatchTime < currentTime.count() && _priorityQ.begin()->dispatchTime > 0)
+	{
+		Telegram telegram = *_priorityQ.begin();
+
+		BaseGameEntity *receiver = EntityMgr.getEntityFromId(telegram.receiver);
+
+		discharge(receiver, telegram);
+
+		_priorityQ.erase(_priorityQ.begin());
+	}
 }

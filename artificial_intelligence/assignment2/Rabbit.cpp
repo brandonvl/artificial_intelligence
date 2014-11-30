@@ -2,24 +2,34 @@
 #include "Game.h"
 #include "Graph.h"
 #include "Vertex.h"
-
+#include "GlobalRabbitState.h"
+#include "WanderingRabbitState.h"
 
 Rabbit::~Rabbit()
 {
+	getField()->removeData(*this);
 	delete _stateMachine;
 }
+
+void Rabbit::makeMachine(Game &game)
+{
+	_stateMachine = new StateMachine<Rabbit>(this, game);
+	_stateMachine->setGlobalState(&GlobalRabbitState::instance());
+	_stateMachine->changeState(&WanderingRabbitState::instance());
+}
+
 
 void Rabbit::update(Game &game)
 {
 	if (_stateMachine)
-		_stateMachine->update(game);
+		_stateMachine->update();
 }
 
-void Rabbit::moveRandom(Game &game)
+bool Rabbit::handleMessage(const Telegram &msg)
 {
-	Vertex *newVertex = game.getGraph().getRandomVertex(getField()->getKey());
-
-	if (newVertex != nullptr) {
-		newVertex->setData(*this);
+	if (_stateMachine) {
+		return _stateMachine->handleMessage(msg);
 	}
+	else
+		return false;
 }

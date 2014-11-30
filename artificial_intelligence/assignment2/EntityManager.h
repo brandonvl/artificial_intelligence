@@ -2,6 +2,7 @@
 #include <map>
 
 class BaseGameEntity;
+class Game;
 
 class EntityManager
 {
@@ -21,6 +22,7 @@ public:
 		return _instance;
 	}
 
+	void updateEntities(Game &game);
 	void registerEntity(BaseGameEntity *entity);
 	BaseGameEntity *getEntityFromId(int id) const;
 	void removeEntity(BaseGameEntity *entity);

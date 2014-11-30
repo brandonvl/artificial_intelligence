@@ -1,6 +1,7 @@
 #include "Drawer.h"
 #include "Sprite.h"
 #include "SDL_image.h"
+#include "Game.h"
 
 Drawer::Drawer(const std::string &title,const int &width, const int &height)
 {
@@ -79,9 +80,16 @@ void Drawer::drawSprite(const std::string &key, const int &x, const int &y)
 		SDL_Rect *rect = new SDL_Rect();
 		rect->x = x;
 		rect->y = y;
-		rect->w = sprite->getWidth();
-		rect->h = sprite->getHeight();
+		rect->w = VERTEX_SIZE;
+		rect->h = VERTEX_SIZE;
 
 		SDL_RenderCopy(_renderer, sprite->getSprite(), nullptr, rect);
 	}
+}
+
+void Drawer::setColorOverLay(const std::string &key, Uint8 r, Uint8 g, Uint8 b)
+{
+	Sprite *sprite = _sprites[key];
+
+	SDL_SetTextureColorMod(sprite->getSprite(), r, g, b);
 }

@@ -32,11 +32,9 @@ void Graph::addEdge(const int &fromVert, const int &toVert, const int &weight)
 	}
 }
 
-Vertex *Graph::getRandomVertex(const int &notKey)
+Vertex *Graph::getRandomVertex(const std::set<int> *notKeys)
 {
-	if (notKey == -2) {
-		return getVertex(7);
-	}
+
 	Vertex *returnVertex = nullptr;
 	std::map<int, Vertex*>::const_iterator iterator;
 
@@ -48,7 +46,7 @@ Vertex *Graph::getRandomVertex(const int &notKey)
 			returnVertex = iterator->second;
 		}
 
-	} while (returnVertex == nullptr && returnVertex->getKey() == notKey);
+	} while (returnVertex == nullptr && (notKeys && *notKeys->find(returnVertex->getKey()) != *notKeys->end()));
 
 	return returnVertex;
 }

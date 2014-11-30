@@ -9,13 +9,18 @@
 #include <memory>
 #include <list>
 #include "EntityManager.h"
+#include "Pill.h"
+#include "Weapon.h"
+#include "MessageDispatcher.h"
 
 Game::Game()
 {
 	_graph = new Graph();
 	_drawer = new Drawer("KMINT - Application 1",1024,720);
-	_drawer->load("cow", R"(assets\cow.png)");
-	_drawer->load("rabbit", R"(assets\rabbit.png)");
+	_drawer->load("cow", R"(assets/cow.png)");
+	_drawer->load("rabbit", R"(assets/rabbit.png)");
+	_drawer->load("weapon", R"(assets/weapon.png)");
+	_drawer->load("pill", R"(assets/pill.png)");
 
 	_graph->addVertex(1, 100, 100);
 	_graph->addVertex(2, 250, 60);
@@ -38,14 +43,22 @@ Game::Game()
 
 
 	_cow = new Cow();
+	_cow->makeMachine(*this);
 	EntityMgr.registerEntity(_cow);
 	_rabbit = new Rabbit();
+	_rabbit->makeMachine(*this);
 	EntityMgr.registerEntity(_rabbit);
+
+	Pill *pill = new Pill();
+	pill->makeMachine(*this);
+	EntityMgr.registerEntity(pill);
+	Weapon *weapon = new Weapon();
+	weapon->makeMachine(*this);
+	EntityMgr.registerEntity(weapon);
 	_graph->getVertex(1)->setData(*_cow);
 	_graph->getVertex(6)->setData(*_rabbit);
-
-	_gameObjects.push_back(_rabbit);
-	_gameObjects.push_back(_cow);
+	_graph->getVertex(8)->setData(*pill);
+	_graph->getVertex(4)->setData(*weapon);
 	
 }
 
@@ -65,6 +78,7 @@ void Game::run()
 	_running = true;
 
 	while (_running) {
+		Dispatch.dispatchDelayedMessages();
 		handleEvents();
 		update();
 		draw();
@@ -75,9 +89,7 @@ void Game::run()
 void Game::update()
 {
 	if (doTurn) {
-		for (auto obj : _gameObjects) {
-			obj->update(*this);
-		}
+		EntityMgr.updateEntities(*this);
 		doTurn = false;
 	}
 }
@@ -115,12 +127,8 @@ void Game::draw()
 
 		_drawer->drawRectangle(it.second->getXPos(), it.second->getYPos(), VERTEX_SIZE, VERTEX_SIZE);
 
-		GameObject *object = it.second->getData();
-
-		if (object != nullptr) {
-			_drawer->drawSprite(object->getName(), it.second->getXPos(), it.second->getYPos());
-		}
+		if (it.second->getData().size() > 0)
+			_drawer->drawSprite((*it.second->getData().begin())->getName(), it.second->getXPos(), it.second->getYPos());
 	}
-
 	_drawer->render();
 }

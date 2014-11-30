@@ -26,8 +26,18 @@ BaseGameEntity *EntityManager::getEntityFromId(int id) const
 		return nullptr;
 }
 
+void EntityManager::updateEntities(Game &game)
+{
+	for (auto it : _entityMap)
+	{
+		it.second->update(game);
+	}
+}
+
 void EntityManager::removeEntity(BaseGameEntity *entity)
 {
-	if (_entityMap.find(entity->getId()) != _entityMap.end())
+	if (_entityMap.find(entity->getId()) != _entityMap.end()) {
 		_entityMap.erase(entity->getId());
+		delete entity;
+	}
 }

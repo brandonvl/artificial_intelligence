@@ -13,7 +13,7 @@ bool AStarSearch::FCostContainer::operator<(const FCostContainer &container) con
 	if (TOTALDISTANCE != container.TOTALDISTANCE)
 		return TOTALDISTANCE < container.TOTALDISTANCE;
 
-	if (VERTEX->getXPos() != container.VERTEX->getXPos())
+	if (VERTEX->getXPos() == container.VERTEX->getXPos())
 		return VERTEX->getYPos() < container.VERTEX->getYPos();
 	else
 		return VERTEX->getXPos() < container.VERTEX->getXPos();

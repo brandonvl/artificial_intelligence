@@ -16,7 +16,7 @@ public:
 	Vertex *getField() { return _field; }
 	void setField(Vertex *field) { _field = field; }
 	virtual void update(Game &game) = 0;
-	virtual void moveRandom(Game &game) = 0;
+	virtual bool handleMessage(const Telegram &msg) = 0;
 private:
 	std::string _name;
 	Vertex *_field;

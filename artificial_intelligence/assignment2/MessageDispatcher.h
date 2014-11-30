@@ -1,7 +1,7 @@
 #pragma once
 #include <set>
+#include "Telegram.h"
 
-struct Telegram;
 class BaseGameEntity;
 enum class MessageType;
 
@@ -23,7 +23,7 @@ public:
 		return _instance;
 	}
 
-	void dispatchMessage(const long long &delay, const int &sender, const int &receiver, MessageType &msg, void *extraInfo);
+	void dispatchMessage(const long long &delay, const int &sender, const int &receiver, const MessageType &msg, void *extraInfo);
 	void dispatchDelayedMessages();
 	#define Dispatch MessageDispatcher::instance()
 };

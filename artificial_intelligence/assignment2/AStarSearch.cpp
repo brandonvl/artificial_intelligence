@@ -13,7 +13,7 @@ bool AStarSearch::FCostContainer::operator<(const FCostContainer &container) con
 	if (TOTALDISTANCE != container.TOTALDISTANCE)
 		return TOTALDISTANCE < container.TOTALDISTANCE;
 
-	if (VERTEX->getXPos() != container.VERTEX->getXPos())
+	if (VERTEX->getXPos() == container.VERTEX->getXPos())
 		return VERTEX->getYPos() < container.VERTEX->getYPos();
 	else
 		return VERTEX->getXPos() < container.VERTEX->getXPos();
@@ -37,13 +37,7 @@ double AStarSearch::estimatedDistance(Vertex &from, Vertex &to)
 
 void AStarSearch::clear()
 {
-	/*_graph = nullptr;
-	//_GCosts.clear();
-	_FCosts.clear();
-	_SearchFrontier.clear();
-	_ShortestPathTree.clear();
-	_Source = -1;
-	_Target = -1;*/
+
 }
 
 std::stack<Vertex*> AStarSearch::reconstructPath(Graph &graph, std::map<int, Vertex*> &cameFrom, const int &current)

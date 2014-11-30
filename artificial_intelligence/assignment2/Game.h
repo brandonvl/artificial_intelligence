@@ -8,6 +8,9 @@ class GameObject;
 class Cow;
 class Rabbit;
 
+const int VERTEX_SIZE = 50;
+const int VERTEX_MIDDLE = VERTEX_SIZE / 2;
+
 class Game
 {
 public:
@@ -17,8 +20,8 @@ public:
 	void stop();
 	Graph &getGraph() { return *_graph; }
 	Rabbit &getRabbit() { return *_rabbit; }
+	Drawer &getDrawer()  { return *_drawer; }
 private:
-	std::vector<GameObject*> _gameObjects;
 	Graph *_graph;
 	Drawer *_drawer;
 	Cow *_cow;
@@ -27,8 +30,6 @@ private:
 	void update();
 	void draw();
 	bool _running = false;
-	const int VERTEX_SIZE = 50;
-	const int VERTEX_MIDDLE = VERTEX_SIZE / 2;
 	bool doTurn = false;
 };
 

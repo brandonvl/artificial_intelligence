@@ -2,6 +2,7 @@
 
 #include <map>
 #include <list>
+#include <set>
 
 class Vertex;
 class Edge;
@@ -17,7 +18,7 @@ public:
 	Edge *getEdge(const int &from, const int &to);
 	std::list<Edge*> getEdges(const int &key) { return _edgeList[key]; }
 	std::map<int, Vertex*> getVertexes() { return _vertexMap; }
-	Vertex *getRandomVertex(const int &notKey);
+	Vertex *getRandomVertex(const std::set<int> *notKeys);
 
 	int numVertexes();
 private:
