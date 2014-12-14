@@ -9,6 +9,14 @@ class WanderingRabbitState :
 private:
 	WanderingRabbitState();
 	virtual ~WanderingRabbitState();
+	bool _receivedChasingCowMessage;
+	int _runChance = 30, _searchWeaponChance = 30, _searchPillChance = 30;
+
+	const int ACTION_RANGE = 2;
+
+	bool lookAround(Rabbit *entity, Game &game);
+	bool isNextToCow(Rabbit *entity, Game &game, int fieldKey);
+	void wander(Rabbit *entity, Game &game);
 public:
 	virtual bool onMessage(Rabbit *entity, const Telegram &msg, Game &game) override;
 	virtual void enter(Rabbit *entity, Game &game) override;

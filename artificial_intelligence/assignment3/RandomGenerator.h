@@ -16,7 +16,7 @@ public:
 			int rand = random(0, vect.size() - 1);
 			return vect[rand];
 		}
-		return nullptr;
+		return -1;
 	}
 
 	template<typename T>
@@ -29,6 +29,26 @@ public:
 		}
 
 		return nullptr;
+	}
+
+	static const int chance(std::initializer_list<int> chances) {
+
+		// calculate total and generate random
+		int total = 0, start = 0, i = 0;
+		for (auto chance : chances) total += chance;
+		int rand = RandomGenerator::random(0, total - 1);
+
+		// determine wich item has 'won'
+		for (auto chance : chances) {
+			if (rand >= start && rand < chance) {
+				return i;
+			}
+			start = chance;
+			i++;
+		}
+
+		// default: 0 wins
+		return 0;
 	}
 
 private:

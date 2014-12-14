@@ -9,7 +9,7 @@
 #include "Rabbit.h"
 #include "EntityManager.h"
 #include "GlobalCowState.h"
-#include "WanderingCowState.h"
+#include "ChaseCowState.h"
 
 Cow::~Cow()
 {
@@ -20,7 +20,7 @@ void Cow::makeMachine(Game &game)
 {
 	_stateMachine = new StateMachine<Cow>(this, game);
 	_stateMachine->setGlobalState(&GlobalCowState::instance());
-	_stateMachine->changeState(&WanderingCowState::instance());
+	_stateMachine->changeState(&ChaseCowState::instance());
 }
 
 void Cow::update(Game &game)

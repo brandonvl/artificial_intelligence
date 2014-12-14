@@ -49,15 +49,15 @@ Game::Game()
 	_rabbit->makeMachine(*this);
 	EntityMgr.registerEntity(_rabbit);
 
-	Pill *pill = new Pill();
-	pill->makeMachine(*this);
-	EntityMgr.registerEntity(pill);
+	_pill = new Pill();
+	_pill->makeMachine(*this);
+	EntityMgr.registerEntity(_pill);
 	Weapon *weapon = new Weapon();
 	weapon->makeMachine(*this);
 	EntityMgr.registerEntity(weapon);
 	_graph->getVertex(1)->setData(*_cow);
 	_graph->getVertex(6)->setData(*_rabbit);
-	_graph->getVertex(8)->setData(*pill);
+	_graph->getVertex(8)->setData(*_pill);
 	_graph->getVertex(4)->setData(*weapon);
 	
 }

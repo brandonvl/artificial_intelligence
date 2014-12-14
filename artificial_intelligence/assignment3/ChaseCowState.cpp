@@ -12,6 +12,7 @@
 #include "MessageTypes.h"
 #include "AStarSearch.h"
 #include "Rabbit.h"
+#include "WanderingCowState.h"
 
 ChaseCowState::ChaseCowState()
 {
@@ -31,8 +32,8 @@ bool ChaseCowState::onMessage(Cow *entity, const Telegram &msg, Game &game)
 			return true;
 		case MessageType::Msg_RabbitCaught:
 			std::cout << "Cow is almighty, reverting to wandering!" << std::endl;
-			entity->setPillUpgrade(false);
-			entity->getFSM()->revertToPreviousState();
+			//entity->setPillUpgrade(false);
+			entity->changeState(&WanderingCowState::instance());
 			return true;
 	}
 
@@ -47,27 +48,27 @@ void ChaseCowState::enter(Cow *entity, Game &game)
 
 void ChaseCowState::update(Cow *entity, Game &game)
 {
-	if (entity->hasPill()) {
+	// Get the sortest path to the rabbit
+	if (_path.empty()) {
+		_path = AStarSearch::getShortestPath(game.getGraph(), entity->getField()->getKey(), game.getRabbit().getField()->getKey());
+	}
 
-		if (_path.empty()) {
-			_path = AStarSearch::getShortestPath(game.getGraph(), entity->getField()->getKey(), game.getRabbit().getField()->getKey());
-		}
-		Vertex *newPlace = game.getGraph().getVertex(_path.top()->getKey());
-		_path.pop();
+	// Determine the new position for the cow
+	Vertex *newPlace = game.getGraph().getVertex(_path.top()->getKey());
+	_path.pop();
 
-		if (newPlace != nullptr) {
-			std::set<GameObject*> objData = newPlace->getData();
+	// Let the cow visit the new location
+	if (newPlace != nullptr) {
+		std::set<GameObject*> objData = newPlace->getData();
 
-			if (objData.size() > 0) {
-				//std::cout << "MSG to all objects on vertex: CowVisiting" << std::endl;
-				for (auto it : objData) {
-					Dispatch.dispatchMessage(0.0, entity->getId(), it->getId(), MessageType::Msg_ChasingCowVisiting, entity);
-				}
+		if (objData.size() > 0) {
+			//std::cout << "MSG to all objects on vertex: CowVisiting" << std::endl;
+			for (auto it : objData) {
+				Dispatch.dispatchMessage(0.0, entity->getId(), it->getId(), MessageType::Msg_ChasingCowVisiting, entity);
 			}
-
-			newPlace->setData(*entity);
 		}
 
+		newPlace->setData(*entity);
 	}
 
 }

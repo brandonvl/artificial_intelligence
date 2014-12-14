@@ -11,6 +11,7 @@
 #include "MessageTypes.h"
 #include "Drawer.h"
 #include <iostream>
+//#include "ChasePillCowState.h"
 
 WanderingCowState::WanderingCowState()
 {
@@ -41,6 +42,7 @@ void WanderingCowState::enter(Cow *entity, Game &game)
 
 void WanderingCowState::update(Cow *entity, Game &game)
 {
+	/*
 	if (!entity->hasPill()) {
 		std::list<Edge*> edges = game.getGraph().getEdges(entity->getField()->getKey());
 
@@ -64,6 +66,14 @@ void WanderingCowState::update(Cow *entity, Game &game)
 
 		}
 	}
+
+	if (!entity->hadPill()) {
+		int randomChance = RandomGenerator::random(1, 100);
+
+		if (randomChance > 40) {
+			entity->changeState(&ChasePillCowState::instance());
+		}
+	}*/
 }
 
 void WanderingCowState::exit(Cow *entity, Game &game)
