@@ -1,4 +1,4 @@
-#include "ChasePillRabbitState.h"
+#include "ChaseWeaponRabbitState.h"
 #include "Rabbit.h"
 #include <set>
 #include <list>
@@ -11,34 +11,34 @@
 #include "MessageDispatcher.h"
 #include "MessageTypes.h"
 #include "AStarSearch.h"
-#include "Pill.h"
+#include "Weapon.h"
 #include "WanderingRabbitState.h"
 #include "Cow.h"
 
-ChasePillRabbitState::ChasePillRabbitState()
+ChaseWeaponRabbitState::ChaseWeaponRabbitState()
 {
 }
 
 
-ChasePillRabbitState::~ChasePillRabbitState()
+ChaseWeaponRabbitState::~ChaseWeaponRabbitState()
 {
 }
 
-bool ChasePillRabbitState::onMessage(Rabbit *entity, const Telegram &msg, Game &game)
+bool ChaseWeaponRabbitState::onMessage(Rabbit *entity, const Telegram &msg, Game &game)
 {
 	return false;
 }
 
-void ChasePillRabbitState::enter(Rabbit *entity, Game &game)
+void ChaseWeaponRabbitState::enter(Rabbit *entity, Game &game)
 {
-	game.getDrawer().setColorOverLay(entity->getName(), 150, 200, 100);
+	game.getDrawer().setColorOverLay(entity->getName(), 150, 10, 200);
 }
 
-void ChasePillRabbitState::update(Rabbit *entity, Game &game)
+void ChaseWeaponRabbitState::update(Rabbit *entity, Game &game)
 {
-	if (!entity->hasPill()) {
+	if (!entity->hasWeapon()) {
 
-		std::stack<Vertex*> path = AStarSearch::getShortestPath(game.getGraph(), entity->getField()->getKey(), game.getPill().getField()->getKey(), &game.getCow());
+		std::stack<Vertex*> path = AStarSearch::getShortestPath(game.getGraph(), entity->getField()->getKey(), game.getWeapon().getField()->getKey(), &game.getCow());
 
 		Vertex *newPlace = game.getGraph().getVertex(path.top()->getKey());
 
@@ -57,10 +57,10 @@ void ChasePillRabbitState::update(Rabbit *entity, Game &game)
 
 	}
 	else
-		entity->changeState(&ChasePillRabbitState::instance());
+		entity->changeState(&ChaseWeaponRabbitState::instance());
 
 }
 
-void ChasePillRabbitState::exit(Rabbit *entity, Game &game)
+void ChaseWeaponRabbitState::exit(Rabbit *entity, Game &game)
 {
 }

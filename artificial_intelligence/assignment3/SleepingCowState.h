@@ -2,20 +2,22 @@
 #include "State.h"
 class Cow;
 
-class WanderingCowState :
+class SleepingCowState :
 	public State<Cow>
 {
 private:
-	WanderingCowState();
-	virtual ~WanderingCowState();
+	SleepingCowState();
+	virtual ~SleepingCowState();
+	int _sleepCounter = 5;
+
 public:
 	virtual bool onMessage(Cow *entity, const Telegram &msg, Game &game) override;
 	virtual void enter(Cow *entity, Game &game) override;
 	virtual void update(Cow *entity, Game &game) override;
 	virtual void exit(Cow *entity, Game &game) override;
 
-	static WanderingCowState &instance() {
-		static WanderingCowState _instance;
+	static SleepingCowState &instance() {
+		static SleepingCowState _instance;
 		return _instance;
 	}
 };

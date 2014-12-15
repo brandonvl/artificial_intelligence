@@ -53,10 +53,11 @@ std::stack<Vertex*> AStarSearch::reconstructPath(Graph &graph, std::map<int, Ver
 		
 	}
 
+	path.pop();
 	return path;
 }
 
-std::stack<Vertex*> AStarSearch::getShortestPath(Graph &graph, const int &source, const int &target)
+std::stack<Vertex*> AStarSearch::getShortestPath(Graph &graph, const int &source, const int &target, GameObject *avoidObject)
 {
 	AStarSearch instance = AStarSearch::instance();
 	instance.clear();
@@ -97,6 +98,9 @@ std::stack<Vertex*> AStarSearch::getShortestPath(Graph &graph, const int &source
 
 			// Calculate distance from source (tentative)
 			double g_score = nextClosestVertex.DISTANCETOSOURCE + edge->getWeight();
+
+			if (avoidObject != nullptr && nextClosestVertex.VERTEX->getData().find(avoidObject) != nextClosestVertex.VERTEX->getData().end())
+				g_score += 999999;
 
 			auto edgeInOpenList = std::find_if(openList.begin(), openList.end(), [&edge](const FCostContainer &arg) { return arg.VERTEX->getKey() == edge->getDestination(); });
 

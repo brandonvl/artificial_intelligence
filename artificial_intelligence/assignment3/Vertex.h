@@ -15,7 +15,7 @@ public:
 	void setData(GameObject &data);
 	void removeData(GameObject &data);
 	void clearData() { _data.clear(); }
-	std::set<GameObject*> getData() { return _data; }
+	const std::set<GameObject*> &getData() { return _data; }
 	const int &getKey() { return _key; }
 	float getXPos() { return _xPos; }
 	float getYPos() { return _yPos; }

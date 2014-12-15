@@ -69,9 +69,6 @@
     <ClCompile Include="GlobalRabbitState.cpp">
       <Filter>Source Files\states\rabbitStates</Filter>
     </ClCompile>
-    <ClCompile Include="WanderingCowState.cpp">
-      <Filter>Source Files\states\cowStates</Filter>
-    </ClCompile>
     <ClCompile Include="WanderingRabbitState.cpp">
       <Filter>Source Files\states\rabbitStates</Filter>
     </ClCompile>
@@ -120,10 +117,16 @@
     <ClCompile Include="GlobalWeaponState.cpp">
       <Filter>Source Files\states\weaponStates</Filter>
     </ClCompile>
-    <ClCompile Include="HighAwarenessRabbitState.cpp">
+    <ClCompile Include="ChasePillRabbitState.cpp">
       <Filter>Source Files\states\rabbitStates</Filter>
     </ClCompile>
-    <ClCompile Include="ChasePillRabbitState.cpp">
+    <ClCompile Include="ChaseWeaponRabbitState.cpp">
+      <Filter>Source Files\states\rabbitStates</Filter>
+    </ClCompile>
+    <ClCompile Include="SleepingCowState.cpp">
+      <Filter>Source Files\states\cowStates</Filter>
+    </ClCompile>
+    <ClCompile Include="ChaseCowRabbitState.cpp">
       <Filter>Source Files\states\rabbitStates</Filter>
     </ClCompile>
   </ItemGroup>
@@ -148,9 +151,6 @@
     </ClInclude>
     <ClInclude Include="GlobalRabbitState.h">
       <Filter>Header Files\states\rabbitStates</Filter>
-    </ClInclude>
-    <ClInclude Include="WanderingCowState.h">
-      <Filter>Header Files\states\cowStates</Filter>
     </ClInclude>
     <ClInclude Include="WanderingRabbitState.h">
       <Filter>Header Files\states\rabbitStates</Filter>
@@ -209,10 +209,16 @@
     <ClInclude Include="GlobalWeaponState.h">
       <Filter>Header Files\states\weaponStates</Filter>
     </ClInclude>
-    <ClInclude Include="HighAwarenessRabbitState.h">
+    <ClInclude Include="ChasePillRabbitState.h">
       <Filter>Header Files\states\rabbitStates</Filter>
     </ClInclude>
-    <ClInclude Include="ChasePillRabbitState.h">
+    <ClInclude Include="ChaseWeaponRabbitState.h">
+      <Filter>Header Files\states\rabbitStates</Filter>
+    </ClInclude>
+    <ClInclude Include="SleepingCowState.h">
+      <Filter>Header Files\states\cowStates</Filter>
+    </ClInclude>
+    <ClInclude Include="ChaseCowRabbitState.h">
       <Filter>Header Files\states\rabbitStates</Filter>
     </ClInclude>
   </ItemGroup>

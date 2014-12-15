@@ -12,7 +12,7 @@
 #include "MessageTypes.h"
 #include "AStarSearch.h"
 #include "Rabbit.h"
-#include "WanderingCowState.h"
+#include "SleepingCowState.h"
 
 ChaseCowState::ChaseCowState()
 {
@@ -31,10 +31,14 @@ bool ChaseCowState::onMessage(Cow *entity, const Telegram &msg, Game &game)
 			Dispatch.dispatchMessage(0.0, entity->getId(), msg.sender, MessageType::Msg_ChasingCowPresent, nullptr);
 			return true;
 		case MessageType::Msg_RabbitCaught:
-			std::cout << "Cow is almighty, reverting to wandering!" << std::endl;
-			//entity->setPillUpgrade(false);
-			entity->changeState(&WanderingCowState::instance());
+			//std::cout << "Cow is almighty, rabbit caught!" << std::endl;
 			return true;
+		case MessageType::Msg_CowSleep:
+			entity->changeState(&SleepingCowState::instance());
+			break;
+		case MessageType::Msg_ChasingRabbitVisiting:
+			Dispatch.dispatchMessage(0.0, entity->getId(), msg.sender, MessageType::Msg_CowCaught, nullptr);
+			break;
 	}
 
 	return false;
@@ -42,20 +46,16 @@ bool ChaseCowState::onMessage(Cow *entity, const Telegram &msg, Game &game)
 
 void ChaseCowState::enter(Cow *entity, Game &game)
 {
-	clearPath();
 	game.getDrawer().setColorOverLay(entity->getName(), 255, 0, 0);
 }
 
 void ChaseCowState::update(Cow *entity, Game &game)
 {
 	// Get the sortest path to the rabbit
-	if (_path.empty()) {
-		_path = AStarSearch::getShortestPath(game.getGraph(), entity->getField()->getKey(), game.getRabbit().getField()->getKey());
-	}
+	std::stack<Vertex*> path = AStarSearch::getShortestPath(game.getGraph(), entity->getField()->getKey(), game.getRabbit().getField()->getKey());
 
 	// Determine the new position for the cow
-	Vertex *newPlace = game.getGraph().getVertex(_path.top()->getKey());
-	_path.pop();
+	Vertex *newPlace = game.getGraph().getVertex(path.top()->getKey());
 
 	// Let the cow visit the new location
 	if (newPlace != nullptr) {
@@ -73,13 +73,6 @@ void ChaseCowState::update(Cow *entity, Game &game)
 
 }
 
-void ChaseCowState::clearPath()
-{
-	while (!_path.empty())
-		_path.pop();
-}
-
 void ChaseCowState::exit(Cow *entity, Game &game)
 {
-	clearPath();
 }

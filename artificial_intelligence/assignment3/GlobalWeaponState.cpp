@@ -4,6 +4,7 @@
 #include "EntityManager.h"
 #include "MessageDispatcher.h"
 #include "MessageTypes.h"
+#include "Vertex.h"
 
 GlobalWeaponState::GlobalWeaponState()
 {
@@ -24,7 +25,8 @@ bool GlobalWeaponState::onMessage(Weapon *entity, const Telegram &msg, Game &gam
 		{
 			rabbitEntity->setWeapon();
 			Dispatch.dispatchMessage(0.0, entity->getId(), rabbitEntity->getId(), MessageType::Msg_WeaponUpgrade, nullptr);
-			EntityMgr.removeEntity(entity);
+			entity->getField()->removeData(*entity);
+			entity->setField(nullptr);
 			return true;
 		}
 		else

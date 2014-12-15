@@ -40,10 +40,10 @@ public:
 
 		// determine wich item has 'won'
 		for (auto chance : chances) {
-			if (rand >= start && rand < chance) {
+			if (rand >= start && rand < start + chance) {
 				return i;
 			}
-			start = chance;
+			start += chance;
 			i++;
 		}
 

@@ -4,7 +4,7 @@
 #include "MessageTypes.h"
 #include "Rabbit.h"
 #include "EntityManager.h"
-
+#include "Vertex.h"
 
 GlobalPillState::GlobalPillState()
 {
@@ -19,13 +19,14 @@ bool GlobalPillState::onMessage(Pill *entity, const Telegram &msg, Game &game)
 {
 	switch (msg.msg)
 	{
-		case MessageType::Msg_CowVisiting:
+		case MessageType::Msg_RabbitVisiting:
 			Rabbit *rabbitEntity = static_cast<Rabbit*>(msg.extraInfo);
 			if (!rabbitEntity->hasPill())
 			{
 				rabbitEntity->setPillUpgrade();
 				Dispatch.dispatchMessage(0.0, entity->getId(), rabbitEntity->getId(), MessageType::Msg_PillUpgrade, nullptr);
-				EntityMgr.removeEntity(entity);
+				entity->getField()->removeData(*entity);
+				entity->setField(nullptr);
 				return true;
 			}
 			else

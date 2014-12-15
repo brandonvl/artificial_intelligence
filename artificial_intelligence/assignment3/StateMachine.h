@@ -20,7 +20,7 @@ public:
 
 	void setCurrentState(State<entity_type> *currentState) { _currentState = currentState; }
 	void setPreviousState(State<entity_type> *previousState) { _currentState = previousState; }
-	void setGlobalState(State<entity_type> *globalState) { _currentState = globalState; }
+	void setGlobalState(State<entity_type> *globalState) { _globalState = globalState; }
 
 	State<entity_type> *currentState() const { return _currentState; }
 	State<entity_type> *previousState() const { return _previousState; }
@@ -37,7 +37,7 @@ public:
 
 		if (newState) {
 			_previousState = _currentState;
-			_currentState->exit(_owner, *_game);
+			if (_previousState)	_previousState->exit(_owner, *_game);
 			_currentState = newState;
 			_currentState->enter(_owner, *_game);
 		}

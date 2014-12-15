@@ -9,8 +9,6 @@ class ChaseCowState :
 private:
 	ChaseCowState();
 	virtual ~ChaseCowState();
-	std::stack<Vertex*> _path;
-	void clearPath();
 public:
 	
 

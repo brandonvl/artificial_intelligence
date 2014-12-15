@@ -5,12 +5,12 @@
 class Rabbit;
 class Vertex;
 
-class ChasePillRabbitState :
+class ChaseWeaponRabbitState :
 	public State<Rabbit>
 {
-private:
-	ChasePillRabbitState();
-	virtual ~ChasePillRabbitState();
+public:
+	ChaseWeaponRabbitState();
+	virtual ~ChaseWeaponRabbitState();
 public:
 
 
@@ -19,8 +19,8 @@ public:
 	virtual void update(Rabbit *entity, Game &game) override;
 	virtual void exit(Rabbit *entity, Game &game) override;
 
-	static ChasePillRabbitState &instance() {
-		static ChasePillRabbitState _instance;
+	static ChaseWeaponRabbitState &instance() {
+		static ChaseWeaponRabbitState _instance;
 		return _instance;
 	}
 };

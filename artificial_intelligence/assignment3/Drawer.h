@@ -18,6 +18,7 @@ public:
 	void drawRectangle(const int &x, const int &y, const int &width, const int &height);
 	void drawLine(const int &x1, const int &y1, const int &x2, const int &y2);
 	void drawSprite(const std::string &key, const int &x, const int &y);
+	void draw(const std::string &key, const int &x, const int &y);
 	void render();
 private:
 	std::map<std::string, Sprite*> _sprites;

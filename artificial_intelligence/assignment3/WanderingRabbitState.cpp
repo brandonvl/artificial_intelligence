@@ -8,11 +8,13 @@
 #include "MessageTypes.h"
 #include "MessageDispatcher.h"
 #include "Drawer.h"
-#include "HighAwarenessRabbitState.h"
 #include "EntityManager.h"
 #include "Cow.h"
 #include <iostream>
 #include "AStarSearch.h"
+#include "ChasePillRabbitState.h"
+#include "ChaseWeaponRabbitState.h"
+#include "ChaseCowRabbitState.h"
 
 WanderingRabbitState::WanderingRabbitState()
 {
@@ -27,15 +29,6 @@ bool WanderingRabbitState::onMessage(Rabbit *entity, const Telegram &msg, Game &
 {
 	switch (msg.msg)
 	{
-	case MessageType::Msg_WeaponUpgrade:
-		std::cout << "Weapon replied! Rabbit entering high awareness!" << std::endl;
-		entity->changeState(&HighAwarenessRabbitState::instance());
-		return true;
-	case MessageType::Msg_ChasingCowVisiting:
-		std::cout << "The cow caught the rabbit!" << std::endl;
-		Dispatch.dispatchMessage(0.0, entity->getId(), static_cast<Cow*>(msg.extraInfo)->getId(), MessageType::Msg_RabbitCaught, nullptr);
-		EntityMgr.removeEntity(entity);
-		return true;
 	case MessageType::Msg_ChasingCowPresent:
 		_receivedChasingCowMessage = true;
 		return true;
@@ -65,35 +58,43 @@ void WanderingRabbitState::exit(Rabbit *entity, Game &game)
 void WanderingRabbitState::wander(Rabbit *entity, Game &game) {
 
 	// stores the 'safe' fields to move to
-	std::vector<int> candidates;
+	std::vector<int> candidates, alternatives;
 
-	for (auto edge : game.getGraph().getEdges(entity->getField()->getKey())) {
-		auto vertex = game.getGraph().getVertex(entity->getField()->getKey() == edge->getSource() ? edge->getDestination() : edge->getSource());
+	for (auto &edge : game.getGraph().getEdges(entity->getField()->getKey())) {
+		auto vertex = game.getGraph().getVertex(edge->getDestination());// game.getGraph().getVertex(entity->getField()->getKey() == edge->getSource() ? edge->getDestination() : edge->getSource());
 
 		if (vertex != nullptr) {
 			auto data = vertex->getData();
 
 			// check if there are any game object on the neightbour vector
 			if (data.size() > 0) {
-				for (auto obj : data) {
+				for (auto &obj : data) {
 					_receivedChasingCowMessage = false;
 
 					Dispatch.dispatchMessage(0.0, entity->getId(), obj->getId(), MessageType::Msg_RabbitPeeking, entity);
 					
 					// if there is no cow on the next field or one of the fields surrounding the field
-					if (!_receivedChasingCowMessage && !isNextToCow(entity, game, vertex->getKey())) {
-						candidates.push_back(vertex->getKey());
+					if (!_receivedChasingCowMessage) {
+						if(!isNextToCow(entity, game, vertex->getKey())) candidates.push_back(vertex->getKey());
+						else alternatives.push_back(vertex->getKey());
 					}
 				}
 			}
-			else if (!isNextToCow(entity, game, vertex->getKey())) 
-				candidates.push_back(vertex->getKey());
+			else if (!isNextToCow(entity, game, vertex->getKey())) candidates.push_back(vertex->getKey());
+			else alternatives.push_back(vertex->getKey());
 		}
 	}
 
-	if (candidates.size() > 0) {
+	if (candidates.size() > 0 || alternatives.size() > 0) {
 		// move to a random available field
-		auto newPlace = game.getGraph().getVertex(RandomGenerator::randomFromVector<int>(candidates));
+		auto newPlace = game.getGraph().getVertex(RandomGenerator::randomFromVector<int>(candidates.size() > 0 ? candidates : alternatives));
+
+		for (auto &obj : newPlace->getData()) {
+
+			// Crash: Pill/Weapon upgrade (object) is removed
+			Dispatch.dispatchMessage(0.0, entity->getId(), obj->getId(), MessageType::Msg_RabbitVisiting, entity);
+		}
+
 		newPlace->setData(*entity);
 	}
 	else {
@@ -105,6 +106,8 @@ void WanderingRabbitState::wander(Rabbit *entity, Game &game) {
 bool WanderingRabbitState::lookAround(Rabbit *entity, Game &game) {
 	// should the rabbit be scared (is there a cow next to him)
 	if (isNextToCow(entity, game, entity->getField()->getKey())) {
+		if (entity->hasPill()) _searchPillChance = 0;
+
 		// choose an option based on chances (higher numbers for more likely actions)
 		int option = RandomGenerator::chance({ _runChance, _searchWeaponChance, _searchPillChance });
 
@@ -115,13 +118,16 @@ bool WanderingRabbitState::lookAround(Rabbit *entity, Game &game) {
 
 		case 1: // search weapon
 			std::cout << "Going to search for weapon\n";
+			entity->changeState(&ChaseWeaponRabbitState::instance());
+			entity->update(game);
 			break;
 
 		case 2: // search pill
 			std::cout << "Going to search for pill\n";
+			entity->changeState(&ChasePillRabbitState::instance());
+			entity->update(game);
 			break;
 		}
-
 		return true;
 	}
 

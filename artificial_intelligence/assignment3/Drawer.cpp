@@ -87,6 +87,16 @@ void Drawer::drawSprite(const std::string &key, const int &x, const int &y)
 	}
 }
 
+void Drawer::draw(const std::string &key, const int &x, const int &y)
+{
+	Sprite *sprite = _sprites[key];
+
+	if (sprite != nullptr) {
+		SDL_Rect rect = { x, y, sprite->getWidth(), sprite->getHeight() };
+		SDL_RenderCopy(_renderer, sprite->getSprite(), nullptr, &rect);
+	}
+}
+
 void Drawer::setColorOverLay(const std::string &key, Uint8 r, Uint8 g, Uint8 b)
 {
 	Sprite *sprite = _sprites[key];

@@ -9,11 +9,12 @@
 class Graph;
 class Vertex;
 class Edge;
+class GameObject;
 
 class AStarSearch
 {
 public:
-	static std::stack<Vertex*> getShortestPath(Graph &graph, const int &source, const int &target);
+	static std::stack<Vertex*> getShortestPath(Graph &graph, const int &source, const int &target, GameObject *avoidObject = nullptr);
 private:
 	
 	struct FCostContainer
