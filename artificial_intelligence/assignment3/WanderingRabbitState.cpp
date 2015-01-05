@@ -107,10 +107,8 @@ void WanderingRabbitState::wander(Rabbit *entity, Game &game) {
 bool WanderingRabbitState::lookAround(Rabbit *entity, Game &game) {
 	// should the rabbit be scared (is there a cow next to him)
 	if (isNextToCow(entity, game, entity->getField()->getKey())) {
-		if (entity->hasPill()) _searchPillChance = 0;
-
 		// choose an option based on chances (higher numbers for more likely actions)
-		int option = RandomGenerator::chance({ _runChance, _searchWeaponChance, _searchPillChance });
+		int option = RandomGenerator::chance({ entity->getRunChance(), entity->getSearchWeaponChance(), entity->getSearchPillChance() });
 
 		switch (option) {
 		case 0: // run

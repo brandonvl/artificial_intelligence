@@ -10,7 +10,6 @@ private:
 	WanderingRabbitState();
 	virtual ~WanderingRabbitState();
 	bool _receivedChasingCowMessage;
-	int _runChance = 30, _searchWeaponChance = 30, _searchPillChance = 30;
 
 	const int ACTION_RANGE = 2;
 

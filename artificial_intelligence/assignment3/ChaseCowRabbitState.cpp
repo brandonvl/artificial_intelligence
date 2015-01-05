@@ -38,6 +38,7 @@ bool ChaseCowRabbitState::onMessage(Rabbit *entity, const Telegram &msg, Game &g
 		game.respawn(game.getWeapon());
 		game.respawn(game.getCow());
 		entity->changeState(&WanderingRabbitState::instance());
+		entity->updateSearchWeaponChance(true);
 		return true;
 	}
 

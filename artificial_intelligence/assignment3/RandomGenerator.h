@@ -50,10 +50,13 @@ public:
 
 		// determine wich item has 'won'
 		for (auto chance : chances) {
-			if (rand >= start && rand < start + chance) {
-				return i;
+			// catch for filtering 0 values
+			if (chance > 0) {
+				if (rand >= start && rand < start + chance) {
+					return i;
+				}
+				start += chance;
 			}
-			start += chance;
 			i++;
 		}
 
