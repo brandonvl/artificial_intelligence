@@ -6,7 +6,7 @@
 #include "MessageTypes.h"
 #include "Vertex.h"
 
-GlobalWeaponState::GlobalWeaponState()
+GlobalWeaponState::GlobalWeaponState() : State<Weapon>("GlobalWeaponState")
 {
 }
 

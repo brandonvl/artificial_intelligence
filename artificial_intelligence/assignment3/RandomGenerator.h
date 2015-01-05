@@ -31,6 +31,16 @@ public:
 		return nullptr;
 	}
 
+	template<typename A, typename B>
+	static const std::pair<A, B> &randomFromMap(const std::map<A, B> &map) {
+		if (map.size() > 0) {
+			int rand = random(0, map.size() - 1);
+			auto it = map.begin();
+			std::advance(it, rand);
+			return *it;
+		}
+	}
+
 	static const int chance(std::initializer_list<int> chances) {
 
 		// calculate total and generate random

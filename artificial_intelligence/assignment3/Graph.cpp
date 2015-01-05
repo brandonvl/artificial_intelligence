@@ -2,6 +2,7 @@
 #include "Vertex.h"
 #include "Edge.h"
 #include "RandomGenerator.h"
+#include <algorithm>
 
 Graph::Graph()
 {
@@ -34,7 +35,29 @@ void Graph::addEdge(const int &fromVert, const int &toVert, const int &weight)
 
 Vertex *Graph::getRandomVertex(const std::set<int> *notKeys)
 {
+	int limit = 50;
+	while (true) {
+		auto p = RandomGenerator::randomFromMap<int, Vertex*>(_vertexMap);
+		if (notKeys->find(p.first) == notKeys->cend()){
 
+			bool found = false;
+
+			if (--limit > 0) {
+				for (auto &key : *notKeys) {
+					auto edges = getEdges(key);
+
+					if (std::find_if(edges.cbegin(), edges.cend(), [&p](Edge *edge) { return edge->getDestination() == p.first; }) != edges.cend()) {
+						found = true;
+						break;
+					}
+				}
+			}
+			
+			if (!found) return p.second;
+		}
+	}
+
+	/*
 	Vertex *returnVertex = nullptr;
 	std::map<int, Vertex*>::const_iterator iterator;
 
@@ -48,7 +71,7 @@ Vertex *Graph::getRandomVertex(const std::set<int> *notKeys)
 
 	} while (returnVertex == nullptr && (notKeys && *notKeys->find(returnVertex->getKey()) != *notKeys->end()));
 
-	return returnVertex;
+	return returnVertex;*/
 }
 
 Vertex *Graph::getVertex(const int &vertKey) 

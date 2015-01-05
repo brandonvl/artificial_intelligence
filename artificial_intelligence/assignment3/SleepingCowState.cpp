@@ -13,7 +13,7 @@
 #include <iostream>
 //#include "ChasePillCowState.h"
 
-SleepingCowState::SleepingCowState()
+SleepingCowState::SleepingCowState() : State<Cow>("SleepingCowState")
 {
 }
 

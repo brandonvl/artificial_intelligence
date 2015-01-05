@@ -10,7 +10,7 @@ class Rabbit;
 class Pill;
 class Weapon;
 
-const int VERTEX_SIZE = 50;
+const int VERTEX_SIZE = 40;
 const int VERTEX_MIDDLE = VERTEX_SIZE / 2;
 
 class Game
@@ -20,7 +20,7 @@ public:
 	virtual ~Game();
 	void run();
 	void stop();
-	void gameOver() { _gameOver = true; }
+	void gameOver() { _rabbit = nullptr; _gameOver = true; }
 	Graph &getGraph() { return *_graph; }
 	Rabbit &getRabbit() { return *_rabbit; }
 	Drawer &getDrawer()  { return *_drawer; }
@@ -30,6 +30,8 @@ public:
 
 	void respawn(GameObject &gameObject);
 private:
+	void writeStatus();
+
 	Graph *_graph;
 	Drawer *_drawer;
 	Cow *_cow;

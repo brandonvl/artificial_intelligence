@@ -28,11 +28,15 @@ Game::Game()
 	_graph->addVertex(3, 100, 250);
 	_graph->addVertex(4, 400, 400);
 	_graph->addVertex(5, 700, 100);
-	_graph->addVertex(6, 700, 570);
+	_graph->addVertex(6, 650, 470);
 	_graph->addVertex(7, 800, 350);
 	_graph->addVertex(8, 900, 600);
 	_graph->addVertex(9, 120, 600);
 	_graph->addVertex(10, 300, 610);
+	_graph->addVertex(11, 550, 200);
+	_graph->addVertex(12, 900, 200);
+	_graph->addVertex(13, 550, 20);
+	_graph->addVertex(14, 950, 50);
 
 	_graph->addEdge(1, 2, 50000);
 	_graph->addEdge(1, 3, 100000);
@@ -47,14 +51,21 @@ Game::Game()
 	_graph->addEdge(9, 10, 50000);
 	_graph->addEdge(6, 8, 50000);
 	_graph->addEdge(6, 10, 50000);
+	_graph->addEdge(4, 9, 50000);
+	_graph->addEdge(11, 2, 50000);
+	_graph->addEdge(11, 5, 50000);
+	_graph->addEdge(12, 5, 50000);
+	_graph->addEdge(13, 2, 50000);
+	_graph->addEdge(14, 13, 50000);
+	_graph->addEdge(14, 8, 50000);
 
 
-	_cow = new Cow();
-	_cow->makeMachine(*this);
-	EntityMgr.registerEntity(_cow);
 	_rabbit = new Rabbit();
 	_rabbit->makeMachine(*this);
 	EntityMgr.registerEntity(_rabbit);
+	_cow = new Cow();
+	_cow->makeMachine(*this);
+	EntityMgr.registerEntity(_cow);
 
 	_pill = new Pill();
 	_pill->makeMachine(*this);
@@ -97,6 +108,7 @@ void Game::update()
 {
 	if (doTurn && !_gameOver) {
 		EntityMgr.updateEntities(*this);
+		writeStatus();
 		doTurn = false;
 	}
 }
@@ -147,7 +159,25 @@ void Game::draw()
 	_drawer->render();
 }
 
+void Game::writeStatus() {
+	std::cout << "____________________________________________________________________________\n\n";
+	std::cout << "--- RABBIT STATUS ---\n";
+	if (_rabbit) {
+		std::cout << "Has weapon: " << (_rabbit->hasWeapon() ? "true" : "false") << '\n';
+		std::cout << "Has pill: " << (_rabbit->hasPill() ? "true" : "false") << '\n';
+		std::cout << "State: " << _rabbit->getFSM()->currentState()->getName() << "\n\n";
+	}
+	else std::cout << "Rabbit is dead\n\n";
+
+	std::cout << "---- COW STATUS ----\n";
+	std::cout << "State: " << _cow->getFSM()->currentState()->getName() << "\n\n";
+	std::cout << "____________________________________________________________________________\n\n";
+}
+
 void Game::respawn(GameObject &gameObject) {
-	const std::set<int> s = { _cow->getField()->getKey(), _rabbit->getField()->getKey() };
+	std::set<int> s = { _cow->getField()->getKey(), _rabbit->getField()->getKey() };
+	if (_pill->getField() != nullptr) s.insert(_pill->getField()->getKey());
+	if (_weapon->getField() != nullptr) s.insert(_weapon->getField()->getKey());
+
 	_graph->getRandomVertex(&s)->setData(gameObject);
 }

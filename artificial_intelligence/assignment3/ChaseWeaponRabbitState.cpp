@@ -15,7 +15,7 @@
 #include "WanderingRabbitState.h"
 #include "Cow.h"
 
-ChaseWeaponRabbitState::ChaseWeaponRabbitState()
+ChaseWeaponRabbitState::ChaseWeaponRabbitState() : State<Rabbit>("ChaseWeaponRabbitState")
 {
 }
 

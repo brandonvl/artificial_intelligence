@@ -17,7 +17,7 @@
 #include "EntityManager.h"
 #include "Weapon.h"
 
-ChaseCowRabbitState::ChaseCowRabbitState()
+ChaseCowRabbitState::ChaseCowRabbitState() : State<Rabbit>("ChaseCowRabbitState")
 {
 }
 
@@ -34,9 +34,9 @@ bool ChaseCowRabbitState::onMessage(Rabbit *entity, const Telegram &msg, Game &g
 		std::cout << "Headshot! Rabbit shot the cow.\n";
 		_receivedCowCaughtMessage = true;
 		entity->setWeapon(false);
-		// TODO: respawn weapon
 
 		game.respawn(game.getWeapon());
+		game.respawn(game.getCow());
 		entity->changeState(&WanderingRabbitState::instance());
 		return true;
 	}
@@ -57,21 +57,23 @@ void ChaseCowRabbitState::update(Rabbit *entity, Game &game)
 
 		std::stack<Vertex*> path = AStarSearch::getShortestPath(game.getGraph(), entity->getField()->getKey(), game.getCow().getField()->getKey());
 
-		Vertex *newPlace = game.getGraph().getVertex(path.top()->getKey());
+		if (path.size() > 0) {
+			Vertex *newPlace = game.getGraph().getVertex(path.top()->getKey());
 
-		if (newPlace != nullptr) {
-			std::set<GameObject*> objData = newPlace->getData();
+			if (newPlace != nullptr) {
+				std::set<GameObject*> objData = newPlace->getData();
 
-			if (objData.size() > 0) {
-				//std::cout << "MSG to all objects on vertex: RabbitVisiting" << std::endl;
-				for (auto it : objData) {
-					Dispatch.dispatchMessage(0.0, entity->getId(), it->getId(), MessageType::Msg_ChasingRabbitVisiting, entity);
-					
-					if (_receivedCowCaughtMessage) return;
+				if (objData.size() > 0) {
+					//std::cout << "MSG to all objects on vertex: RabbitVisiting" << std::endl;
+					for (auto it : objData) {
+						Dispatch.dispatchMessage(0.0, entity->getId(), it->getId(), MessageType::Msg_ChasingRabbitVisiting, entity);
+
+						if (_receivedCowCaughtMessage) return;
+					}
 				}
-			}
 
-			newPlace->setData(*entity);
+				newPlace->setData(*entity);
+			}
 		}
 
 	}

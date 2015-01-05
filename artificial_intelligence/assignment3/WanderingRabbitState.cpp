@@ -16,7 +16,7 @@
 #include "ChaseWeaponRabbitState.h"
 #include "ChaseCowRabbitState.h"
 
-WanderingRabbitState::WanderingRabbitState()
+WanderingRabbitState::WanderingRabbitState() : State("WanderingRabbitState")
 {
 }
 
@@ -29,7 +29,7 @@ bool WanderingRabbitState::onMessage(Rabbit *entity, const Telegram &msg, Game &
 {
 	switch (msg.msg)
 	{
-	case MessageType::Msg_ChasingCowPresent:
+	case MessageType::Msg_CowPresent:
 		_receivedChasingCowMessage = true;
 		return true;
 	}
@@ -89,7 +89,8 @@ void WanderingRabbitState::wander(Rabbit *entity, Game &game) {
 		// move to a random available field
 		auto newPlace = game.getGraph().getVertex(RandomGenerator::randomFromVector<int>(candidates.size() > 0 ? candidates : alternatives));
 
-		for (auto &obj : newPlace->getData()) {
+		auto data = std::set<GameObject*>(newPlace->getData());
+		for (auto &obj : data) {
 
 			// Crash: Pill/Weapon upgrade (object) is removed
 			Dispatch.dispatchMessage(0.0, entity->getId(), obj->getId(), MessageType::Msg_RabbitVisiting, entity);

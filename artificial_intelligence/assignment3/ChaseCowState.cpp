@@ -14,7 +14,7 @@
 #include "Rabbit.h"
 #include "SleepingCowState.h"
 
-ChaseCowState::ChaseCowState()
+ChaseCowState::ChaseCowState() : State<Cow>("ChaseCowState")
 {
 }
 
@@ -27,18 +27,12 @@ bool ChaseCowState::onMessage(Cow *entity, const Telegram &msg, Game &game)
 {
 	switch (msg.msg)
 	{
-		case MessageType::Msg_RabbitPeeking:
-			Dispatch.dispatchMessage(0.0, entity->getId(), msg.sender, MessageType::Msg_ChasingCowPresent, nullptr);
-			return true;
 		case MessageType::Msg_RabbitCaught:
 			//std::cout << "Cow is almighty, rabbit caught!" << std::endl;
 			return true;
 		case MessageType::Msg_CowSleep:
 			entity->changeState(&SleepingCowState::instance());
-			break;
-		case MessageType::Msg_ChasingRabbitVisiting:
-			Dispatch.dispatchMessage(0.0, entity->getId(), msg.sender, MessageType::Msg_CowCaught, nullptr);
-			break;
+			return true;
 	}
 
 	return false;
@@ -54,8 +48,9 @@ void ChaseCowState::update(Cow *entity, Game &game)
 	// Get the sortest path to the rabbit
 	std::stack<Vertex*> path = AStarSearch::getShortestPath(game.getGraph(), entity->getField()->getKey(), game.getRabbit().getField()->getKey());
 
-	// Determine the new position for the cow
-	Vertex *newPlace = game.getGraph().getVertex(path.top()->getKey());
+	Vertex *newPlace;
+	if (!path.empty()) newPlace = game.getGraph().getVertex(path.top()->getKey());
+	else newPlace = game.getGraph().getVertex(RandomGenerator::randomFromList<Edge*>(game.getGraph().getEdges(entity->getField()->getKey()))->getDestination());
 
 	// Let the cow visit the new location
 	if (newPlace != nullptr) {

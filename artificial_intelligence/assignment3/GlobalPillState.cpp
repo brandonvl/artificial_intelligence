@@ -6,7 +6,7 @@
 #include "EntityManager.h"
 #include "Vertex.h"
 
-GlobalPillState::GlobalPillState()
+GlobalPillState::GlobalPillState() : State<Pill>("GlobalPillState")
 {
 }
 
