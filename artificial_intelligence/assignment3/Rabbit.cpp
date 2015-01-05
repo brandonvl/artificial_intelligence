@@ -36,15 +36,21 @@ bool Rabbit::handleMessage(const Telegram &msg)
 
 void Rabbit::updateRunChance(bool success) {
 	_runChance += success ? CHANCE_SCALE_FACTOR : -CHANCE_SCALE_FACTOR;
+	_searchWeaponChance += (!success ? CHANCE_SCALE_FACTOR : -CHANCE_SCALE_FACTOR) / 2;
+	_searchPillChance += (!success ? CHANCE_SCALE_FACTOR : -CHANCE_SCALE_FACTOR) / 2;
 	validateChances();
 }
 
 void Rabbit::updateSearchWeaponChance(bool success) {
+	_runChance += (!success ? CHANCE_SCALE_FACTOR : -CHANCE_SCALE_FACTOR) / 2;
 	_searchWeaponChance += success ? CHANCE_SCALE_FACTOR : -CHANCE_SCALE_FACTOR;
+	_searchPillChance += (!success ? CHANCE_SCALE_FACTOR : -CHANCE_SCALE_FACTOR) / 2;
 	validateChances();
 }
 
 void Rabbit::updateSearchPillChance(bool success) {
+	_runChance += (!success ? CHANCE_SCALE_FACTOR : -CHANCE_SCALE_FACTOR) / 2;
+	_searchWeaponChance += (!success ? CHANCE_SCALE_FACTOR : -CHANCE_SCALE_FACTOR) / 2;
 	_searchPillChance += success ? CHANCE_SCALE_FACTOR : -CHANCE_SCALE_FACTOR;
 	validateChances();
 }
@@ -72,5 +78,5 @@ void Rabbit::validateChances() {
 	if (_searchPillChance > CHANCE_BOUNDS_MAX)
 		_searchPillChance = CHANCE_BOUNDS_MAX;
 
-	printf("Chances are ajusted (run: %d, searchWeapon: %d, searchPill: %d)", _runChance, _searchWeaponChance, _searchPillChance); 
+	printf("Chances are ajusted (run: %d, searchWeapon: %d, searchPill: %d)\n", _runChance, _searchWeaponChance, _searchPillChance); 
 }
