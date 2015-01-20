@@ -6,7 +6,7 @@ class Game;
 class Rabbit;
 struct Telegram;
 
-class RabbitWanderState : public State<Rabbit>
+class RabbitPursuitState : public State<Rabbit>
 {
 
 public:
@@ -18,6 +18,6 @@ public:
 
 	const std::string getName() const { return _name; }
 
-	RabbitWanderState(std::string name);
-	virtual ~RabbitWanderState() {}
+	RabbitPursuitState(std::string name);
+	virtual ~RabbitPursuitState() {}
 };

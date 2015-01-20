@@ -23,6 +23,6 @@ void Pill::update(Game &game, const double &time_elapsed) {
 }
 
 void Pill::draw(Game &game) {
-	std::string colorExtendtion = _gameGeneticInstance->getColorExtention();
-	game.getDrawer().drawSprite("pill" + colorExtendtion, getPos()->x, getPos()->y);
+	std::string colorExtention = _geneticInstance->getColorExtention();
+	game.getDrawer().drawSprite("pill" + colorExtention, getPos()->x, getPos()->y);
 }

@@ -54,7 +54,9 @@ public:
 	double getBradius() const { return _bradius; }
 	void setScale(Vector2D &scale) { _scale = &scale; }
 	void setBradius(const double &bradius) { _bradius = bradius; }
-	void setPosition(Vector2D &pos) { _pos = &pos; }
+	void setPosition(Vector2D &pos) { _pos->x = pos.x; _pos->y = pos.y; }
 	Vector2D *getConstPos() const { return _pos; }
 	Vector2D *getPos() { return _pos; }
+	bool isTagged()const{ return _tag; }
+	void setIsTagged(bool tagged){ _tag = tagged; }
 };

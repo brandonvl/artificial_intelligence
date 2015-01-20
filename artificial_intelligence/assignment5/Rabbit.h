@@ -10,10 +10,7 @@ private:
 	void makeMachine(Game &game);
 public:
 	StateMachine<Rabbit> &getStateMachine() { return *_stateMachine; }
-	double getPanicDistance() { return 70 * 70; }
-	double getSafeDistance() { return 150 * 150; }
-	int getWanderSpeed() { return 150; }
-	int getFleeSpeed() { return 250; }
+	int getPursuitSpeed() { return 200; }
 	Rabbit(Game &game);
 	virtual ~Rabbit();
 	virtual void update(Game &game, const double &time_elapsed) override;

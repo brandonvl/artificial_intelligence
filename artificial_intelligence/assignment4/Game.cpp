@@ -23,10 +23,15 @@ Game::Game()
 	_rabbit = new Rabbit(*this);
 	//_rabbit->makeMachine(*this);
 	EntityMgr.registerEntity(_rabbit);
-	_cow = new Cow(*this);
-	//_cow->makeMachine(*this);
-	EntityMgr.registerEntity(_cow);
-	
+
+	int numberOfCows = 30;
+	for (int i = 0; i < numberOfCows; i++)
+	{
+		Cow *cow = new Cow(*this);
+		cow->setPosition(Vector2D(10 * (i + 1), 500));
+		_cows.push_back(cow);
+		EntityMgr.registerEntity(cow);
+	}
 }
 
 
@@ -62,8 +67,9 @@ void Game::run()
 
 void Game::update(const double &time_elapsed)
 {
-	_cow->update(*this, time_elapsed);
 	_rabbit->update(*this, time_elapsed);
+	for (size_t i = 0; i < _cows.size(); i++)
+		_cows[i]->update(*this, time_elapsed);
 }
 
 void Game::handleEvents()
@@ -77,9 +83,10 @@ void Game::handleEvents()
 }
 
 void Game::draw()
-{
+{	
 	_drawer->prepareForDraw();
+	for (size_t i = 0; i < _cows.size(); i++)
+		_cows[i]->draw(*this);
 	_rabbit->draw(*this);
-	_cow->draw(*this);
 	_drawer->render();
 }

@@ -2,11 +2,14 @@
 #include "MovingEntity.h"
 #include "SteeringBehaviors.h"
 
+class Game;
+
 class Vehicle :
 	public MovingEntity
 {
 private:
 	std::vector<Vector2D> _drawBuffer;
+	Game *_world;
 	void initBuffer();
 protected:
 	double _time_elapsed;
@@ -25,7 +28,8 @@ public:
 		double    max_force,
 		double    max_speed,
 		double    max_turn_rate,
-		double    scale);
+		double    scale,
+		Game *game);
 	virtual ~Vehicle();
 	SteeringBehaviors &getSteeringBehaviors() { return _behaviors; }
 	virtual double getTimeElapsed() { return _time_elapsed; }
@@ -35,5 +39,5 @@ public:
 	virtual void setDrawColor(const int &r, const int &g, const int &b) {
 		_drawColor = { r, g, b };
 	}
+	Game &getWorld() { return *_world; }
 };
-

@@ -13,16 +13,20 @@ private:
 	int _id;
 	bool _tag;
 	static int _nextValidId;
+	int _points;
 
-	void setID(int id = -1); // Legacy
 	int nextValidID() { return _nextValidId++; }
 protected:
 	Vector2D *_scale;
 	Vector2D *_pos;
 	double _bradius;
-	GameGeneticInstance *_gameGeneticInstance;
+	GameGeneticInstance *_geneticInstance;
 public:
-	void setGameGeneticInstance(GameGeneticInstance &instance) { _gameGeneticInstance = &instance; }
+	void setGeneticInstance(GameGeneticInstance &geneticInstance) { _geneticInstance = &geneticInstance; }
+	GameGeneticInstance *getGeneticInstance() { return _geneticInstance; }
+	int getPoints() { return _points; }
+	void addPoints(const int &value) { _points += value; }
+	void resetPoints() { _points = 0; }
 	BaseGameEntity() :_id(nextValidID()),
 		_bradius(0.0),
 		_pos(new Vector2D()),
@@ -57,7 +61,7 @@ public:
 	double getBradius() const { return _bradius; }
 	void setScale(Vector2D &scale) { _scale = &scale; }
 	void setBradius(const double &bradius) { _bradius = bradius; }
-	void setPosition(Vector2D &pos) { _pos = &pos; }
+	void setPosition(Vector2D &pos) { _pos->x = pos.x; _pos->y = pos.y; }
 	Vector2D *getConstPos() const { return _pos; }
 	Vector2D *getPos() { return _pos; }
 };

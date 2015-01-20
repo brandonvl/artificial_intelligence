@@ -2,7 +2,6 @@
 #include "Cow.h"
 #include "Game.h"
 #include "Drawer.h"
-#include "RabbitWanderState.h"
 #include "GameGeneticInstance.h"
 
 #include <iostream>
@@ -15,7 +14,6 @@ Rabbit::Rabbit(Game &game) : Vehicle(new Vector2D(350.0, 600.0), 10.0, new Vecto
 
 void Rabbit::makeMachine(Game &game) {
 	_stateMachine = new StateMachine<Rabbit>(this, game);
-	_stateMachine->setCurrentState(new RabbitWanderState("RabbitWanderState"));
 }
 
 void Rabbit::update(Game &game, const double &time_elapsed) {
@@ -29,8 +27,8 @@ void Rabbit::update(Game &game, const double &time_elapsed) {
 }
 
 void Rabbit::draw(Game &game)  {
-	std::string colorExtendtion = _gameGeneticInstance->getColorExtention();
-	game.getDrawer().drawSprite("rabbit" + colorExtendtion, getPos()->x, getPos()->y);
+	std::string colorExtention = _geneticInstance->getColorExtention();
+	game.getDrawer().drawSprite("rabbit" + colorExtention, getPos()->x, getPos()->y);
 }
 
 

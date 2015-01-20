@@ -27,7 +27,7 @@ Game::Game()
 	//_cow = new Cow(*this);
 	//_cow->makeMachine(*this);
 	//EntityMgr.registerEntity(_cow);
-	_geneticInstance = new GameGeneticInstance(*this, GameGeneticInstanceColor::RED);
+	_geneticInstance = new GameGeneticInstance(*this, GameGeneticInstanceColor::GREEN);
 	
 }
 

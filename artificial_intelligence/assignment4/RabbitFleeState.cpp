@@ -25,16 +25,25 @@ void RabbitFleeState::update(Rabbit *entity, Game &game)
 {
 	if (entity->getSteeringBehaviors().isWanderOn())
 		entity->getSteeringBehaviors().wanderOff();
-
-	if (!entity->getSteeringBehaviors().isEvadeOn())
-		entity->getSteeringBehaviors().evadeOn(&game.getCow(),entity->getPanicDistance());
-
-	if (Vec2DDistanceSq(*entity->getPos(), *game.getCow().getPos()) > entity->getSafeDistance())
-		entity->getStateMachine().changeState(new RabbitWanderState("RabbitWanderState"));
-
-
-	// Als koe dichtbij is
 	
+	auto cows = game.getCows();
+	double closestCow = 0.0;
+	int cowID = 0;
+	for (size_t i = 0; i < cows.size(); i++)
+	{
+		double distance = Vec2DDistanceSq(*entity->getPos(), *cows[i]->getPos());
+		if (distance < closestCow || closestCow == 0.0)
+		{
+			cowID = i;
+			closestCow = distance;
+		}
+	}
+
+	if (closestCow < entity->getPanicDistance())
+		entity->getSteeringBehaviors().evadeOn(cows[cowID], entity->getPanicDistance());
+
+	if (closestCow > entity->getSafeDistance())
+		entity->getStateMachine().changeState(new RabbitWanderState("RabbitWanderState"));
 }
 
 void RabbitFleeState::exit(Rabbit *entity, Game &game)

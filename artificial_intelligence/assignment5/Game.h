@@ -28,6 +28,8 @@ public:
 	Vector2D getRabbitSpawn() { return Vector2D(350, 600); }
 
 private:
+	int _rounds = 0;
+	double _startTimeStamp;
 	std::vector<GameGeneticInstance*> _geneticInstances;
 	GameGeneticInstance *_geneticInstance;
 	Drawer *_drawer;

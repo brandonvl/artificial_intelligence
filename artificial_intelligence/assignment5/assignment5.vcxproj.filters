@@ -78,15 +78,6 @@
     <ClCompile Include="SteeringBehaviors.cpp">
       <Filter>Source Files\model</Filter>
     </ClCompile>
-    <ClCompile Include="CowPursuitState.cpp">
-      <Filter>Source Files\model\cowStates</Filter>
-    </ClCompile>
-    <ClCompile Include="RabbitFleeState.cpp">
-      <Filter>Source Files\model\rabbitStates</Filter>
-    </ClCompile>
-    <ClCompile Include="RabbitWanderState.cpp">
-      <Filter>Source Files\model\rabbitStates</Filter>
-    </ClCompile>
     <ClCompile Include="GameGeneticInstance.cpp">
       <Filter>Source Files\model</Filter>
     </ClCompile>
@@ -95,6 +86,15 @@
     </ClCompile>
     <ClCompile Include="Pill.cpp">
       <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="RabbitPursuitState.cpp">
+      <Filter>Source Files\model\rabbitStates</Filter>
+    </ClCompile>
+    <ClCompile Include="CowFleeState.cpp">
+      <Filter>Source Files\model\cowStates</Filter>
+    </ClCompile>
+    <ClCompile Include="CowWanderState.cpp">
+      <Filter>Source Files\model\cowStates</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -143,15 +143,6 @@
     <ClInclude Include="SteeringBehaviors.h">
       <Filter>Header Files\model</Filter>
     </ClInclude>
-    <ClInclude Include="CowPursuitState.h">
-      <Filter>Header Files\model\cowStates</Filter>
-    </ClInclude>
-    <ClInclude Include="RabbitWanderState.h">
-      <Filter>Header Files\model\rabbitStates</Filter>
-    </ClInclude>
-    <ClInclude Include="RabbitFleeState.h">
-      <Filter>Header Files\model\rabbitStates</Filter>
-    </ClInclude>
     <ClInclude Include="GameGeneticInstance.h">
       <Filter>Header Files\model</Filter>
     </ClInclude>
@@ -160,6 +151,15 @@
     </ClInclude>
     <ClInclude Include="Pill.h">
       <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="RabbitPursuitState.h">
+      <Filter>Header Files\model\rabbitStates</Filter>
+    </ClInclude>
+    <ClInclude Include="CowFleeState.h">
+      <Filter>Header Files\model\cowStates</Filter>
+    </ClInclude>
+    <ClInclude Include="CowWanderState.h">
+      <Filter>Header Files\model\cowStates</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

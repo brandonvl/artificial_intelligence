@@ -20,6 +20,10 @@ private:
 	Weapon *_weapon;
 	std::string _colorExtension;
 public:
+	Rabbit &getRabbit() { return *_rabbit; }
+	Cow &getCow() { return *_cow; }
+	Pill &getPill() { return *_pill; }
+	Weapon &getWeapon() { return *_weapon; }
 	std::string &getColorExtention() { return _colorExtension; }
 	GameGeneticInstance(Game &game, GameGeneticInstanceColor color);
 	virtual void update(Game &game, double time_elapsed);

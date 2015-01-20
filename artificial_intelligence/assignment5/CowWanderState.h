@@ -1,16 +1,15 @@
 #pragma once
 #include "State.h"
+#include "Cow.h"
+
 #include <string>
 
 class Game;
-class Cow;
 struct Telegram;
 
-class CowPursuitState : public State<Cow>
+class CowWanderState : public State<Cow>
 {
-
 public:
-
 	virtual bool onMessage(Cow *entity, const Telegram &msg, Game &game) override;
 	virtual void enter(Cow *entity, Game &game) override;
 	virtual void update(Cow *entity, Game &game) override;
@@ -18,6 +17,6 @@ public:
 
 	const std::string getName() const { return _name; }
 
-	CowPursuitState(std::string name);
-	virtual ~CowPursuitState() {}
+	CowWanderState(std::string name);
+	virtual ~CowWanderState() {}
 };

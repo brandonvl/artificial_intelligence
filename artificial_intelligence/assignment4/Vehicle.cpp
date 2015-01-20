@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "Drawer.h"
 #include "2D\Transformations.h"
+#include "Game.h"
 
 Vehicle::Vehicle(Vector2D *position,
 	double    rotation,
@@ -11,7 +12,8 @@ Vehicle::Vehicle(Vector2D *position,
 	double    max_force,
 	double    max_speed,
 	double    max_turn_rate,
-	double    scale) : MovingEntity(position,
+	double    scale,
+	Game *game) : MovingEntity(position,
 	scale,
 	velocity,
 	max_speed,
@@ -19,9 +21,9 @@ Vehicle::Vehicle(Vector2D *position,
 	mass,
 	new Vector2D(scale, scale),
 	max_turn_rate,
-	max_force), _behaviors(this)
+	max_force), _behaviors(this),
 
-	//m_pWorld(world),
+	_world(game)
 	//m_vSmoothedHeading(Vector2D(0, 0)),
 	//m_bSmoothingOn(false),
 	//m_dTimeElapsed(0.0)
@@ -38,9 +40,7 @@ Vehicle::~Vehicle()
 void Vehicle::draw(Game &game)
 {
 	std::vector<Vector2D> vectors;
-
 	
-
 	vectors = WorldTransform(_drawBuffer,
 		*getConstPos(),
 		*getHeading(),

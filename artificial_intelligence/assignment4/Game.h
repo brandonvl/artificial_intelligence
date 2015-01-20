@@ -20,12 +20,12 @@ public:
 	void stop();
 	Rabbit &getRabbit() { return *_rabbit; }
 	Drawer &getDrawer()  { return *_drawer; }
-	Cow &getCow() { return *_cow; }
+	std::vector<Vehicle*> getCows() { return _cows; }
 
 private:
 	Drawer *_drawer;
 	Vehicle *_testObject;
-	Cow *_cow;
+	std::vector<Vehicle*> _cows;
 	Rabbit *_rabbit;
 	void handleEvents();
 	void update(const double &time_elapsed);

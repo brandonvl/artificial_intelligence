@@ -29,7 +29,16 @@ void RabbitWanderState::update(Rabbit *entity, Game &game)
 	if (!entity->getSteeringBehaviors().isWanderOn())
 		entity->getSteeringBehaviors().wanderOn();
 
-	if (Vec2DDistanceSq(*entity->getPos(), *game.getCow().getPos()) < entity->getPanicDistance())
+	auto cows = game.getCows();
+	double closestCow = 0.0;
+	for (size_t i = 0; i < cows.size(); i++)
+	{
+		double distance = Vec2DDistanceSq(*entity->getPos(), *cows[i]->getPos());
+		if (distance < closestCow || closestCow == 0.0)
+			closestCow = distance;
+	}
+
+	if (closestCow < entity->getPanicDistance())
 		entity->getStateMachine().changeState(new RabbitFleeState("RabbitFleeState"));
 }
 

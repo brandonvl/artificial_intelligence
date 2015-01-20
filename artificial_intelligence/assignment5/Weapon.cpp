@@ -24,6 +24,6 @@ void Weapon::update(Game &game, const double &time_elapsed) {
 }
 
 void Weapon::draw(Game &game) {
-	std::string colorExtendtion = _gameGeneticInstance->getColorExtention();
-	game.getDrawer().drawSprite("weapon" + colorExtendtion, getPos()->x, getPos()->y);
+	std::string colorExtention = _geneticInstance->getColorExtention();
+	game.getDrawer().drawSprite("weapon" + colorExtention, getPos()->x, getPos()->y);
 }

@@ -4,10 +4,11 @@
 #include "Drawer.h"
 #include "RabbitWanderState.h"
 
-Rabbit::Rabbit(Game &game) : Vehicle(new Vector2D(350.0, 350.0), 10.0, new Vector2D(0.0, 0.0), 0.1, 4.0, 150.0, 15.0, 15.0)
+Rabbit::Rabbit(Game &game) : Vehicle(new Vector2D(350.0, 350.0), 10.0, new Vector2D(0.0, 0.0), 0.1, 4.0, 150.0, 15.0, 15.0, &game)
 {
 	setDrawColor(255, 0, 0);
 	makeMachine(game);
+	_behaviors.setCalculateType(SteeringBehaviors::CalculateType::Weighted);
 }
 
 void Rabbit::makeMachine(Game &game) {

@@ -21,10 +21,24 @@ void CowPursuitState::enter(Cow *entity, Game &game)
 
 void CowPursuitState::update(Cow *entity, Game &game)
 {
+	
 	if (!entity->getSteeringBehaviors().isPursuitOn())
 		entity->getSteeringBehaviors().pursuitOn(&game.getRabbit());
 	if (!entity->getSteeringBehaviors().isArriveOn())
 		entity->getSteeringBehaviors().arriveOn(&game.getRabbit());
+
+	/*if (!entity->getSteeringBehaviors().isWanderOn())
+		entity->getSteeringBehaviors().wanderOn();*/
+
+
+	if (!entity->getSteeringBehaviors().isSeparationOn())
+		entity->getSteeringBehaviors().separationOn();
+	if (!entity->getSteeringBehaviors().isAlignmentOn())
+		entity->getSteeringBehaviors().alignmentOn();
+	if (!entity->getSteeringBehaviors().isCohesionOn())
+		entity->getSteeringBehaviors().cohesionOn();
+
+
 }
 
 void CowPursuitState::exit(Cow *entity, Game &game)

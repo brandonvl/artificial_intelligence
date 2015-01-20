@@ -28,11 +28,10 @@ GameGeneticInstance::GameGeneticInstance(Game &game, GameGeneticInstanceColor co
 	_pill = new Pill();
 	_weapon = new Weapon();
 
-	// rework
-	_cow->setGameGeneticInstance(*this);
-	_rabbit->setGameGeneticInstance(*this);
-	_pill->setGameGeneticInstance(*this);
-	_weapon->setGameGeneticInstance(*this);
+	_cow->setGeneticInstance(*this);
+	_rabbit->setGeneticInstance(*this);
+	_pill->setGeneticInstance(*this);
+	_weapon->setGeneticInstance(*this);
 }
 
 void GameGeneticInstance::update(Game &game, double time_elapsed) {
