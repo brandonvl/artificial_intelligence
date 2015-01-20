@@ -4,7 +4,7 @@
 #include "Drawer.h"
 
 
-Weapon::Weapon() : Vehicle(new Vector2D(600.0, 400.0), 10.0, new Vector2D(0.0, 0.0), 0.1, 2.0, 150.0, 150.0, 15.0)
+Weapon::Weapon(Game &game) : Vehicle(new Vector2D(600.0, 400.0), 10.0, new Vector2D(0.0, 0.0), 0.1, 2.0, 150.0, 150.0, 15.0, game)
 {
 }
 
@@ -26,4 +26,8 @@ void Weapon::update(Game &game, const double &time_elapsed) {
 void Weapon::draw(Game &game) {
 	std::string colorExtention = _geneticInstance->getColorExtention();
 	game.getDrawer().drawSprite("weapon" + colorExtention, getPos()->x, getPos()->y);
+}
+
+void Weapon::respawn() {
+	_game->respawnRandom(this);
 }

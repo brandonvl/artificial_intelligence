@@ -325,9 +325,10 @@ Vector2D SteeringBehaviors::calculatePriority()
 	_steeringForce.Zero();
 
 	//  double weightPursuit = 10.0, weightSeperation = 5, weightCohesion = 15, weightAlignment = 20, weightWander = 1;
-	double weightPursuit = 1.0, weightSeperation = 5, weightCohesion = 1, weightAlignment = 10, weightWander = 1;
+	double weightPursuit = 10.0, weightSeperation = 20, weightCohesion = 0.8, weightAlignment = 20, weightWander = 1;
 
-	TagNeighbors(1000.0);
+	if (on(BEHAVIOR::SEPARATION) || on(BEHAVIOR::ALIGNMENT) || on(BEHAVIOR::COHESION))
+		TagNeighbors(10.0);
 
 	if (on(BEHAVIOR::SEPARATION))
 	{

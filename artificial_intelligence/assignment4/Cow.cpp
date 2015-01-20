@@ -5,7 +5,7 @@
 #include "CowPursuitState.h"
 //#include "SteeringBehaviors.h"
 
-Cow::Cow(Game &game) : Vehicle(new Vector2D(100.0, 50.0), 10.0, new Vector2D(0.0, 0.0), 0.1, 2.0, 150.0, 150.0, 15.0, &game)
+Cow::Cow(Game &game) : Vehicle(new Vector2D(100.0, 50.0), 10.0, new Vector2D(0.0, 0.0), 0.1, 4.0, 150.0, 150.0, 15.0, &game)
 {
 	setDrawColor(0, 0, 0);
 	makeMachine(game);

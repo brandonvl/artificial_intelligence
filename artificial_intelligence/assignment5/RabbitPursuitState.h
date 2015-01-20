@@ -16,8 +16,11 @@ public:
 	virtual void update(Rabbit *entity, Game &game) override;
 	virtual void exit(Rabbit *entity, Game &game) override;
 
-	const std::string getName() const { return _name; }
-
-	RabbitPursuitState(std::string name);
+	RabbitPursuitState();
 	virtual ~RabbitPursuitState() {}
+
+	static RabbitPursuitState &instance() {
+		static RabbitPursuitState instance;
+		return instance;
+	}
 };

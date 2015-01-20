@@ -4,6 +4,7 @@
 #include "Pill.h"
 #include "Weapon.h"
 #include "Game.h"
+#include "EntityManager.h"
 
 GameGeneticInstance::GameGeneticInstance(Game &game, GameGeneticInstanceColor color)
 {
@@ -25,17 +26,34 @@ GameGeneticInstance::GameGeneticInstance(Game &game, GameGeneticInstanceColor co
 
 	_cow = new Cow(game);
 	_rabbit = new Rabbit(game);
-	_pill = new Pill();
-	_weapon = new Weapon();
+	_pill = new Pill(game);
+	_weapon = new Weapon(game);
+
+	EntityMgr.registerEntity(_cow);
+	EntityMgr.registerEntity(_rabbit);
+	EntityMgr.registerEntity(_pill);
+	EntityMgr.registerEntity(_weapon);
 
 	_cow->setGeneticInstance(*this);
 	_rabbit->setGeneticInstance(*this);
 	_pill->setGeneticInstance(*this);
 	_weapon->setGeneticInstance(*this);
+
+	//_pill->respawn();
+	//_weapon->respawn();
+}
+
+void GameGeneticInstance::respawnWeapon() {
+	_weapon->respawn();
+}
+
+void GameGeneticInstance::respawnPill() {
+	_pill->respawn();
 }
 
 void GameGeneticInstance::update(Game &game, double time_elapsed) {
-
+	_cow->update(game, time_elapsed);
+	_rabbit->update(game, time_elapsed);
 }
 
 void GameGeneticInstance::draw(Game &game, double time_elapsed) {
@@ -48,4 +66,8 @@ void GameGeneticInstance::draw(Game &game, double time_elapsed) {
 
 GameGeneticInstance::~GameGeneticInstance()
 {
+	delete _pill;
+	delete _weapon;
+	delete _cow;
+	delete _rabbit;
 }

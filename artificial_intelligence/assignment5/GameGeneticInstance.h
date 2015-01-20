@@ -24,6 +24,9 @@ public:
 	Cow &getCow() { return *_cow; }
 	Pill &getPill() { return *_pill; }
 	Weapon &getWeapon() { return *_weapon; }
+
+	void respawnWeapon();
+	void respawnPill();
 	std::string &getColorExtention() { return _colorExtension; }
 	GameGeneticInstance(Game &game, GameGeneticInstanceColor color);
 	virtual void update(Game &game, double time_elapsed);

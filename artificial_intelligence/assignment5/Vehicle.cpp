@@ -11,7 +11,8 @@ Vehicle::Vehicle(Vector2D *position,
 	double    max_force,
 	double    max_speed,
 	double    max_turn_rate,
-	double    scale) : MovingEntity(position,
+	double    scale,
+	Game &game) : MovingEntity(position,
 	scale,
 	velocity,
 	max_speed,
@@ -19,7 +20,7 @@ Vehicle::Vehicle(Vector2D *position,
 	mass,
 	new Vector2D(scale, scale),
 	max_turn_rate,
-	max_force), _behaviors(this)
+	max_force), _behaviors(this), _game(&game)
 
 	//m_pWorld(world),
 	//m_vSmoothedHeading(Vector2D(0, 0)),

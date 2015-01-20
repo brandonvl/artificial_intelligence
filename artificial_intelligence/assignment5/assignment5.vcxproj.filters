@@ -96,6 +96,18 @@
     <ClCompile Include="CowWanderState.cpp">
       <Filter>Source Files\model\cowStates</Filter>
     </ClCompile>
+    <ClCompile Include="RandomGenerator.cpp">
+      <Filter>Source Files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="CowChasePillState.cpp">
+      <Filter>Source Files\model\cowStates</Filter>
+    </ClCompile>
+    <ClCompile Include="CowChaseWeaponState.cpp">
+      <Filter>Source Files\model\cowStates</Filter>
+    </ClCompile>
+    <ClCompile Include="CowHideState.cpp">
+      <Filter>Source Files\model\cowStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseGameEntity.h">
@@ -159,6 +171,18 @@
       <Filter>Header Files\model\cowStates</Filter>
     </ClInclude>
     <ClInclude Include="CowWanderState.h">
+      <Filter>Header Files\model\cowStates</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomGenerator.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="CowChasePillState.h">
+      <Filter>Header Files\model\cowStates</Filter>
+    </ClInclude>
+    <ClInclude Include="CowChaseWeaponState.h">
+      <Filter>Header Files\model\cowStates</Filter>
+    </ClInclude>
+    <ClInclude Include="CowHideState.h">
       <Filter>Header Files\model\cowStates</Filter>
     </ClInclude>
   </ItemGroup>

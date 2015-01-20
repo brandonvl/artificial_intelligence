@@ -10,6 +10,7 @@ private:
 	void initBuffer();
 protected:
 	double _time_elapsed;
+	Game *_game;
 	SteeringBehaviors _behaviors;
 	struct DrawColor {
 		int R; int G; int B;
@@ -25,7 +26,8 @@ public:
 		double    max_force,
 		double    max_speed,
 		double    max_turn_rate,
-		double    scale);
+		double    scale,
+		Game &game);
 	virtual ~Vehicle();
 	SteeringBehaviors &getSteeringBehaviors() { return _behaviors; }
 	virtual double getTimeElapsed() { return _time_elapsed; }

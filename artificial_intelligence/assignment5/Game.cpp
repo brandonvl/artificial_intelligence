@@ -8,7 +8,7 @@
 #include "MessageDispatcher.h"
 #include "Vehicle.h"
 #include <iostream>
-#include "GameGeneticInstance.h"
+#include "RandomGenerator.h"
 
 Game::Game()
 {
@@ -20,14 +20,16 @@ Game::Game()
 	//_drawer->load("gameover", R"(assets/gameover.png)");
 	loadInstanceColorImages();
 
-
 	//_rabbit = new Rabbit(*this);
 	//_rabbit->makeMachine(*this);
 	//EntityMgr.registerEntity(_rabbit);
 	//_cow = new Cow(*this);
 	//_cow->makeMachine(*this);
 	//EntityMgr.registerEntity(_cow);
-	_geneticInstance = new GameGeneticInstance(*this, GameGeneticInstanceColor::GREEN);
+	_geneticInstances.push_back(new GameGeneticInstance(*this, GameGeneticInstanceColor::RED));
+	//_geneticInstances.push_back(new GameGeneticInstance(*this, GameGeneticInstanceColor::BLUE));
+	//_geneticInstances.push_back(new GameGeneticInstance(*this, GameGeneticInstanceColor::YELLOW));
+	//_geneticInstances.push_back(new GameGeneticInstance(*this, GameGeneticInstanceColor::GREEN));
 	
 }
 
@@ -61,9 +63,15 @@ void Game::run()
 	}
 }
 
+void respawnRandom(Vehicle *objectToRespawn) {
+
+}
+
 void Game::update(const double &time_elapsed)
 {
-	_geneticInstance->update(*this, time_elapsed);
+	for (auto &it : _geneticInstances) {
+		it->update(*this, time_elapsed);
+	}
 	//_cow->update(*this, time_elapsed);
 	//_rabbit->update(*this, time_elapsed);
 }
@@ -81,8 +89,20 @@ void Game::handleEvents()
 void Game::draw()
 {
 	_drawer->prepareForDraw();
-	_geneticInstance->draw(*this, 0.0);
+	for (auto &it : _geneticInstances) {
+		it->draw(*this, 0.0);
+	}
 	_drawer->render();
+}
+
+void Game::respawnRandom(Vehicle *objectToRespawn) {
+
+	int x, y;
+
+	x = RandomGenerator::random(0, 800);
+	y = RandomGenerator::random(0, 800);
+
+	objectToRespawn->setPosition(Vector2D(x, y));
 }
 
 void Game::loadInstanceColorImages() {

@@ -60,6 +60,10 @@ public:
 	void wanderOff();
 	bool isWanderOn() { return on(BEHAVIOR::WANDER); }
 
+	void fleeOn(Vehicle *pursuer);
+	void fleeOff();
+	bool isFleeOn() { return on(BEHAVIOR::FLEE); }
+
 	SteeringBehaviors(Vehicle *owner);
 	virtual ~SteeringBehaviors();
 	Vector2D calculate();

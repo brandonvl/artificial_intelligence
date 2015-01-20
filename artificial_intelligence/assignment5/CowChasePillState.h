@@ -1,13 +1,12 @@
 #pragma once
 #include "State.h"
-#include "Cow.h"
 
-#include <string>
-
+class Cow;
 class Game;
 struct Telegram;
 
-class CowFleeState : public State<Cow>
+class CowChasePillState :
+	public State<Cow>
 {
 public:
 	virtual bool onMessage(Cow *entity, const Telegram &msg, Game &game) override;
@@ -15,11 +14,12 @@ public:
 	virtual void update(Cow *entity, Game &game) override;
 	virtual void exit(Cow *entity, Game &game) override;
 
-	CowFleeState();
-	virtual ~CowFleeState() {}
+	CowChasePillState();
+	virtual ~CowChasePillState() {}
 
-	static CowFleeState &instance() {
-		static CowFleeState instance;
+	static CowChasePillState &instance() {
+		static CowChasePillState instance;
 		return instance;
 	}
 };
+

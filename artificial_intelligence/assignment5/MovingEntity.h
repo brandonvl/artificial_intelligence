@@ -4,13 +4,14 @@ class MovingEntity :
 	public BaseGameEntity
 {
 private:
-	Vector2D *_velocity;
 	Vector2D *_heading;
 	Vector2D *_side;
 	double _mass;
 	double _maxSpeed;
 	double _maxForce;
 	double _maxTurnRate;
+protected:
+	Vector2D *_velocity;
 public:
 	Vector2D *getVelocity() const { return _velocity; }
 	Vector2D *getHeading() const { return _heading; }

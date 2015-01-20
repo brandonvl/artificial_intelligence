@@ -9,6 +9,7 @@ SteeringBehaviors::SteeringBehaviors(Vehicle *owner) : _owner(owner), _steeringF
 	_wanderRadius = 6.0;
 	_wanderDistance = 3.0;
 	_wanderJitter = 1000;
+	_fleeDistance = 200;
 
 	double theta = RandFloat() * TwoPi;
 
@@ -24,7 +25,7 @@ Vector2D SteeringBehaviors::seek(Vector2D targetPos) {
 
 Vector2D SteeringBehaviors::flee(Vector2D targetPos) {
 
-	if (Vec2DDistanceSq(*_owner->getPos(), targetPos) > _fleeDistance)
+	if (Vec2DDistance(*_owner->getPos(), targetPos) > _fleeDistance)
 		return Vector2D(0, 0);
 
 	Vector2D desiredVelocity = Vec2DNormalize(*_owner->getPos() - targetPos) * _owner->getMaxSpeed();
@@ -57,7 +58,8 @@ Vector2D SteeringBehaviors::wander()
 {
 
 	double jitterThisTimeSlice = _wanderJitter * _owner->getTimeElapsed();
-	//std::cout << jitterThisTimeSlice << "\n";
+
+
 	_wanderTarget += Vector2D(RandomClamped() * jitterThisTimeSlice, RandomClamped() * jitterThisTimeSlice);
 
 	_wanderTarget.Normalize();
@@ -118,6 +120,17 @@ void SteeringBehaviors::wanderOff()
 		_behavior ^= BEHAVIOR::WANDER;
 }
 
+void SteeringBehaviors::fleeOn(Vehicle *pursuer) {
+	_target = pursuer;
+	_behavior |= BEHAVIOR::FLEE;
+}
+
+void SteeringBehaviors::fleeOff() {
+
+	if (on(BEHAVIOR::FLEE))
+		_behavior ^= BEHAVIOR::FLEE;
+}
+
 Vector2D SteeringBehaviors::pursuit(const Vehicle *evader) {
 
 	Vector2D toEvader = *evader->getConstPos() - *_owner->getPos();
@@ -145,6 +158,8 @@ Vector2D SteeringBehaviors::calculate() {
 
 	_steeringForce.Zero();
 
+	if (on(BEHAVIOR::FLEE))
+		_steeringForce += flee(*_target->getPos());
 	if (on(BEHAVIOR::PURSUIT))
 		_steeringForce += pursuit(_target);
 	if (on(BEHAVIOR::ARRIVE))

@@ -4,8 +4,9 @@ class Weapon :
 	public Vehicle
 {
 public:
-	Weapon();
+	Weapon(Game &game);
 	virtual ~Weapon();
+	void respawn();
 	virtual void update(Game &game, const double &time_elapsed) override;
 	virtual void draw(Game &game) override;
 };

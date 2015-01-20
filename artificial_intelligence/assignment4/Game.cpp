@@ -24,11 +24,11 @@ Game::Game()
 	//_rabbit->makeMachine(*this);
 	EntityMgr.registerEntity(_rabbit);
 
-	int numberOfCows = 30;
+	int numberOfCows = 10;
 	for (int i = 0; i < numberOfCows; i++)
 	{
 		Cow *cow = new Cow(*this);
-		cow->setPosition(Vector2D(10 * (i + 1), 500));
+		cow->setPosition(Vector2D(80 * (i + 1), 500));
 		_cows.push_back(cow);
 		EntityMgr.registerEntity(cow);
 	}

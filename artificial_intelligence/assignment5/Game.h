@@ -12,7 +12,8 @@ class Rabbit;
 class Pill;
 class Weapon;
 class Vehicle;
-class GameGeneticInstance;
+
+#include "GameGeneticInstance.h"
 
 class Game
 {
@@ -24,9 +25,9 @@ public:
 	Rabbit &getRabbit() { return *_rabbit; }
 	Drawer &getDrawer()  { return *_drawer; }
 	Cow &getCow() { return *_cow; }
-	Vector2D getCowSpawn() { return Vector2D(350, 200); }
-	Vector2D getRabbitSpawn() { return Vector2D(350, 600); }
-
+	Vector2D getCowSpawn() { return Vector2D(200, 350); }
+	Vector2D getRabbitSpawn() { return Vector2D(600, 350); }
+	void respawnRandom(Vehicle *objectToRespawn);
 private:
 	int _rounds = 0;
 	double _startTimeStamp;

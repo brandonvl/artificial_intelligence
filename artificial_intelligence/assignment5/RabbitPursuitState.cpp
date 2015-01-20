@@ -3,10 +3,12 @@
 #include "Game.h"
 #include "Rabbit.h"
 #include "GameGeneticInstance.h"
+#include "MessageTypes.h"
+#include "MessageDispatcher.h"
 
 #include <iostream>
 
-RabbitPursuitState::RabbitPursuitState(std::string name) : State(name) {
+RabbitPursuitState::RabbitPursuitState() : State("RabbitPursuitState") {
 
 }
 
@@ -17,30 +19,26 @@ bool RabbitPursuitState::onMessage(Rabbit *entity, const Telegram &msg, Game &ga
 
 void RabbitPursuitState::enter(Rabbit *entity, Game &game)
 {
-	entity->setMaxSpeed(entity->getPursuitSpeed());
-	std::cout << "Rabbit Entered PursuitState";
+
 }
 
 void RabbitPursuitState::update(Rabbit *entity, Game &game)
 {
 	if (!entity->getSteeringBehaviors().isPursuitOn())
 		entity->getSteeringBehaviors().pursuitOn(&entity->getGeneticInstance()->getCow());
-	if (!entity->getSteeringBehaviors().isArriveOn())
-		entity->getSteeringBehaviors().arriveOn(&entity->getGeneticInstance()->getCow());
+	/*if (!entity->getSteeringBehaviors().isArriveOn())
+		entity->getSteeringBehaviors().arriveOn(&entity->getGeneticInstance()->getCow());*/
 
 
-	if (game.getCow().getPos() == entity->getPos())
+	if (Vec2DDistance(*entity->getGeneticInstance()->getCow().getPos(),*entity->getPos()) <= 2)
 	{
-		// De koe is gevangen en moet gerespawned worden
-		game.getCow().setPosition(game.getCowSpawn());
-		entity->setPosition(game.getRabbitSpawn());
-		entity->addPoints(10);
-		std::cout << "The rabbit Caught the Cow, Rabbit has " + std::to_string(entity->getPoints()) + " points.\n";
+		Dispatch.dispatchMessage(0.0, entity->getId(), entity->getGeneticInstance()->getCow().getId(), MessageType::Msg_RabbitVisiting, entity);
+		entity->respawn();
 	}
 
 }
 
 void RabbitPursuitState::exit(Rabbit *entity, Game &game)
 {
-	std::cout << "Rabbit left PursuitState";
+
 }
