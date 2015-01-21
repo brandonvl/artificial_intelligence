@@ -20,14 +20,16 @@ bool CowFleeState::onMessage(Cow *entity, const Telegram &msg, Game &game)
 		entity->respawn();
 		entity->getGeneticInstance()->getRabbit().addPoints(10);
 		entity->getStateMachine().changeState(&CowWanderState::instance());
-		std::cout << entity->getGeneticInstance()->getColorExtention() << ": Flee \n";
+		
 		return true;
 	}
+
+	return false;
 }
 
 void CowFleeState::enter(Cow *entity, Game &game)
 {
-
+	//std::cout << entity->getGeneticInstance()->getColorExtention() << ": Flee \n";
 }
 
 void CowFleeState::update(Cow *entity, Game &game)
@@ -42,5 +44,5 @@ void CowFleeState::update(Cow *entity, Game &game)
 
 void CowFleeState::exit(Cow *entity, Game &game)
 {
-
+	entity->getSteeringBehaviors().resetBehavior();
 }

@@ -22,7 +22,7 @@ bool CowChaseWeaponState::onMessage(Cow *entity, const Telegram &msg, Game &game
 
 		entity->getStateMachine().changeState(&CowWanderState::instance());
 		entity->respawn();
-		std::cout << entity->getGeneticInstance()->getColorExtention() << ": Weapon seek \n";
+		
 		return true;
 	}
 
@@ -31,6 +31,7 @@ bool CowChaseWeaponState::onMessage(Cow *entity, const Telegram &msg, Game &game
 
 void CowChaseWeaponState::enter(Cow *entity, Game &game)
 {
+	//std::cout << entity->getGeneticInstance()->getColorExtention() << ": Weapon seek \n";
 	entity->setWeapon(false);
 }
 
@@ -40,8 +41,8 @@ void CowChaseWeaponState::update(Cow *entity, Game &game)
 		if (entity->getSteeringBehaviors().isWanderOn())
 			entity->getSteeringBehaviors().wanderOff();
 
-		if (!entity->getSteeringBehaviors().isFleeOn())
-			entity->getSteeringBehaviors().fleeOn(&entity->getGeneticInstance()->getRabbit());
+		/*if (!entity->getSteeringBehaviors().isFleeOn())
+			entity->getSteeringBehaviors().fleeOn(&entity->getGeneticInstance()->getRabbit());*/
 
 		if (!entity->getSteeringBehaviors().isPursuitOn())
 			entity->getSteeringBehaviors().pursuitOn(&entity->getGeneticInstance()->getWeapon());
@@ -50,9 +51,7 @@ void CowChaseWeaponState::update(Cow *entity, Game &game)
 			entity->getGeneticInstance()->respawnWeapon();
 			entity->setWeapon();
 			entity->getVelocity()->Zero();
-			entity->getSteeringBehaviors().fleeOff();
-			entity->getSteeringBehaviors().pursuitOff();
-			entity->getSteeringBehaviors().wanderOff();
+			entity->getSteeringBehaviors().resetBehavior();
 		}
 	}
 
@@ -60,5 +59,6 @@ void CowChaseWeaponState::update(Cow *entity, Game &game)
 
 void CowChaseWeaponState::exit(Cow *entity, Game &game)
 {
+	entity->getSteeringBehaviors().resetBehavior();
 	entity->setWeapon(false);
 }

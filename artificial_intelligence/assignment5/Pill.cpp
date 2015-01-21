@@ -28,5 +28,16 @@ void Pill::draw(Game &game) {
 }
 
 void Pill::respawn() {
-	_game->respawnRandom(this);
+
+	int xStart, xEnd, yStart, yEnd;
+
+	int xHalf = _game->getCowSpawn().x / 2;
+	int yHalf = _game->getCowSpawn().y / 2;
+
+	xStart = _game->getCowSpawn().x - xHalf;
+	xEnd = _game->getCowSpawn().x + xHalf;
+	yStart = _game->getCowSpawn().y - yHalf;
+	yEnd = _game->getCowSpawn().y + yHalf;
+
+	_game->respawnRandom(this, xStart, xEnd, yStart, yEnd);
 }

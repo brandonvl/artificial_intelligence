@@ -158,10 +158,10 @@ Vector2D SteeringBehaviors::calculate() {
 
 	_steeringForce.Zero();
 
-	if (on(BEHAVIOR::FLEE))
-		_steeringForce += flee(*_target->getPos());
 	if (on(BEHAVIOR::PURSUIT))
 		_steeringForce += pursuit(_target);
+	if (on(BEHAVIOR::FLEE))
+		_steeringForce += flee(*_target->getPos());
 	if (on(BEHAVIOR::ARRIVE))
 		_steeringForce += arrive(*_target->getPos(), Deceleration::normal);
 	if (on(BEHAVIOR::WANDER))

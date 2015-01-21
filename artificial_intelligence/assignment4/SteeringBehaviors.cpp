@@ -288,18 +288,20 @@ bool SteeringBehaviors::AccumulateForce(Vector2D &runningTot, Vector2D forceToAd
 
 Vector2D SteeringBehaviors::calculate() {
 	
+	_steeringForce.Zero();
+
 	if (_type == CalculateType::Weighted)
-		return calculateWeight();
+		calculateWeight();
 	else if (_type == CalculateType::Priority)
-		return calculatePriority();
+		calculatePriority();
+
+	_steeringForce.Truncate(_owner->getMaxSpeed());
 
 	return _steeringForce;
 }
 
-Vector2D SteeringBehaviors::calculateWeight()
+void SteeringBehaviors::calculateWeight()
 {
-	_steeringForce.Zero();
-	
 	if (on(BEHAVIOR::SEPARATION))
 		_steeringForce += separation(_owner->getWorld().getCows());
 	if (on(BEHAVIOR::ALIGNMENT))
@@ -314,56 +316,46 @@ Vector2D SteeringBehaviors::calculateWeight()
 		_steeringForce += wander();
 	if (on(BEHAVIOR::EVADE))
 		_steeringForce += evade(_target);
-
-	_steeringForce.Truncate(_owner->getMaxSpeed());
-
-	return _steeringForce;
 }
 
-Vector2D SteeringBehaviors::calculatePriority()
+void SteeringBehaviors::calculatePriority()
 {
-	_steeringForce.Zero();
-
 	//  double weightPursuit = 10.0, weightSeperation = 5, weightCohesion = 15, weightAlignment = 20, weightWander = 1;
-	double weightPursuit = 10.0, weightSeperation = 20, weightCohesion = 0.8, weightAlignment = 20, weightWander = 1;
+	double weightPursuit = 1.0, weightSeperation = 20, weightCohesion = 0.8, weightAlignment = 20, weightWander = 1;
 
 	if (on(BEHAVIOR::SEPARATION) || on(BEHAVIOR::ALIGNMENT) || on(BEHAVIOR::COHESION))
-		TagNeighbors(10.0);
+		TagNeighbors(100.0);
 
 	if (on(BEHAVIOR::SEPARATION))
 	{
 		Vector2D force = separation(_owner->getWorld().getCows()) * weightSeperation;
 
-		if (!AccumulateForce(_steeringForce, force)) return _steeringForce;
+		if (!AccumulateForce(_steeringForce, force)) return;
 	}
 	if (on(BEHAVIOR::ALIGNMENT))
 	{
 		Vector2D force = alignment(_owner->getWorld().getCows()) * weightAlignment;
 
-		if (!AccumulateForce(_steeringForce, force)) return _steeringForce;
+		if (!AccumulateForce(_steeringForce, force)) return;
 	}
 	if (on(BEHAVIOR::COHESION))
 	{
 		Vector2D force = cohesion(_owner->getWorld().getCows()) * weightCohesion;
 
-		if (!AccumulateForce(_steeringForce, force)) return _steeringForce;
+		if (!AccumulateForce(_steeringForce, force)) return;
 	}
 	if (on(BEHAVIOR::PURSUIT))
 	{
 		Vector2D force = pursuit(_target) * weightSeperation;
 
-		if (!AccumulateForce(_steeringForce, force)) return _steeringForce;
+		if (!AccumulateForce(_steeringForce, force)) return;
 	}
 	if (on(BEHAVIOR::WANDER))
 	{
 		Vector2D force = _steeringForce += wander() *weightWander;
 
-		if (!AccumulateForce(_steeringForce, force)) return _steeringForce;
+		if (!AccumulateForce(_steeringForce, force)) return;
 	}
-
-	_steeringForce.Truncate(_owner->getMaxSpeed());
-
-	return _steeringForce;
 }
 
 SteeringBehaviors::~SteeringBehaviors()

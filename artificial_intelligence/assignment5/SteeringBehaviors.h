@@ -67,6 +67,7 @@ public:
 	SteeringBehaviors(Vehicle *owner);
 	virtual ~SteeringBehaviors();
 	Vector2D calculate();
+	void resetBehavior() { _behavior = 0; }
 	
 };
 

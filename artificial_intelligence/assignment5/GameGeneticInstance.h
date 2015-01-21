@@ -28,7 +28,7 @@ public:
 	void respawnWeapon();
 	void respawnPill();
 	std::string &getColorExtention() { return _colorExtension; }
-	GameGeneticInstance(Game &game, GameGeneticInstanceColor color);
+	GameGeneticInstance(Game &game, GameGeneticInstanceColor color, int hideChance, int seekPillChance, int seekWeaponChance, int fleeChance);
 	virtual void update(Game &game, double time_elapsed);
 	virtual void draw(Game &game, double time_elapsed);
 	virtual ~GameGeneticInstance();

@@ -9,9 +9,10 @@ private:
 	StateMachine<Cow> *_stateMachine;
 	void makeMachine(Game &game);
 	bool _invulnerable = false, _hasPill = false, _hasWeapon = false;
-	int _hideChance = 25, _seekPillChance = 25, _seekWeaponChance = 25, _fleeChance = 25;
+	double _hideChance = 0.0, _seekPillChance = 0.0, _seekWeaponChance = 0.0, _fleeChance = 0.0;
 
 public:
+	void setChances(double hide, double seekPill, double seekWeapon, double flee);
 	bool isInvulnerable() { return _invulnerable; }
 	bool hasPill() { return _hasPill; }
 	bool hasWeapon() { return _hasWeapon; }

@@ -7,7 +7,7 @@
 
 #include <iostream>
 
-Rabbit::Rabbit(Game &game) : Vehicle(new Vector2D(350.0, 600.0), 10.0, new Vector2D(200.0, 200.0), 0.1, 4.0, 200.0, 15.0, 15.0, game)
+Rabbit::Rabbit(Game &game) : Vehicle(new Vector2D(350.0, 600.0), 10.0, new Vector2D(600.0, 600.0), 0.1, 4.0, 600.0, 15.0, 15.0, game)
 {
 	setDrawColor(255, 0, 0);
 	makeMachine(game);

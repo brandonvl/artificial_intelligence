@@ -30,7 +30,7 @@ void RabbitPursuitState::update(Rabbit *entity, Game &game)
 		entity->getSteeringBehaviors().arriveOn(&entity->getGeneticInstance()->getCow());*/
 
 
-	if (Vec2DDistance(*entity->getGeneticInstance()->getCow().getPos(),*entity->getPos()) <= 2)
+	if (Vec2DDistance(*entity->getGeneticInstance()->getCow().getPos(),*entity->getPos()) <= 10)
 	{
 		Dispatch.dispatchMessage(0.0, entity->getId(), entity->getGeneticInstance()->getCow().getId(), MessageType::Msg_RabbitVisiting, entity);
 		entity->respawn();

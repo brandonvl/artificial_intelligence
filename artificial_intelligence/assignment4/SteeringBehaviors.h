@@ -48,8 +48,8 @@ public:
 	SteeringBehaviors(Vehicle *owner);
 	virtual ~SteeringBehaviors();
 	Vector2D calculate();
-	Vector2D calculateWeight();
-	Vector2D calculatePriority();
+	void calculateWeight();
+	void calculatePriority();
 
 	void setCalculateType(CalculateType type) { _type = type; }
 

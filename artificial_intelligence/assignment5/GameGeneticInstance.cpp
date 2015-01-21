@@ -6,7 +6,7 @@
 #include "Game.h"
 #include "EntityManager.h"
 
-GameGeneticInstance::GameGeneticInstance(Game &game, GameGeneticInstanceColor color)
+GameGeneticInstance::GameGeneticInstance(Game &game, GameGeneticInstanceColor color, int hideChance, int seekPillChance, int seekWeaponChance, int fleeChance)
 {
 	switch (color)
 	{
@@ -25,6 +25,7 @@ GameGeneticInstance::GameGeneticInstance(Game &game, GameGeneticInstanceColor co
 	}
 
 	_cow = new Cow(game);
+	_cow->setChances(hideChance, seekPillChance, seekWeaponChance, fleeChance);
 	_rabbit = new Rabbit(game);
 	_pill = new Pill(game);
 	_weapon = new Weapon(game);
@@ -39,8 +40,10 @@ GameGeneticInstance::GameGeneticInstance(Game &game, GameGeneticInstanceColor co
 	_pill->setGeneticInstance(*this);
 	_weapon->setGeneticInstance(*this);
 
-	//_pill->respawn();
-	//_weapon->respawn();
+	_cow->normalizeChancesTo100Scale();
+
+	_pill->respawn();
+	_weapon->respawn();
 }
 
 void GameGeneticInstance::respawnWeapon() {

@@ -9,6 +9,8 @@
 #include "Vehicle.h"
 #include <iostream>
 #include "RandomGenerator.h"
+#include <algorithm>
+#include <map>
 
 Game::Game()
 {
@@ -26,10 +28,20 @@ Game::Game()
 	//_cow = new Cow(*this);
 	//_cow->makeMachine(*this);
 	//EntityMgr.registerEntity(_cow);
-	_geneticInstances.push_back(new GameGeneticInstance(*this, GameGeneticInstanceColor::RED));
-	//_geneticInstances.push_back(new GameGeneticInstance(*this, GameGeneticInstanceColor::BLUE));
-	//_geneticInstances.push_back(new GameGeneticInstance(*this, GameGeneticInstanceColor::YELLOW));
-	//_geneticInstances.push_back(new GameGeneticInstance(*this, GameGeneticInstanceColor::GREEN));
+	_geneticInstances.push_back(new GameGeneticInstance(*this, GameGeneticInstanceColor::RED, RandomGenerator::random(10, 30), RandomGenerator::random(10, 30), RandomGenerator::random(10, 30), RandomGenerator::random(10, 30)));
+	_geneticInstances.push_back(new GameGeneticInstance(*this, GameGeneticInstanceColor::BLUE, RandomGenerator::random(10, 30), RandomGenerator::random(10, 30), RandomGenerator::random(10, 30), RandomGenerator::random(10, 30)));
+	_geneticInstances.push_back(new GameGeneticInstance(*this, GameGeneticInstanceColor::YELLOW, RandomGenerator::random(10, 30), RandomGenerator::random(10, 30), RandomGenerator::random(10, 30), RandomGenerator::random(10, 30)));
+	_geneticInstances.push_back(new GameGeneticInstance(*this, GameGeneticInstanceColor::GREEN, RandomGenerator::random(10, 30), RandomGenerator::random(10, 30), RandomGenerator::random(10, 30), RandomGenerator::random(10, 30)));
+
+	std::cout << "-------------- First generation ------------ \n";
+
+	for (auto &it : _geneticInstances) {
+		showChances(it->getCow());
+	}
+
+	std::cout << "-------------- End First generation --------- \n";
+
+
 	
 }
 
@@ -63,17 +75,128 @@ void Game::run()
 	}
 }
 
-void respawnRandom(Vehicle *objectToRespawn) {
+void Game::startRound() {
 
+	
+}
+
+bool Game::isRoundFinished() {
+	return (SDL_GetTicks() - _startTimeStamp) / 1000 >= 30;
 }
 
 void Game::update(const double &time_elapsed)
 {
-	for (auto &it : _geneticInstances) {
-		it->update(*this, time_elapsed);
+	if (_rounds < 5)
+	{
+		if (_rounds != 5 && _startTimeStamp == -1) {
+			++_rounds;
+			_startTimeStamp = SDL_GetTicks();
+		}
+
+		if (isRoundFinished()) {
+			// TODO - apply genetic algorithm
+			std::cout << "Round finished";
+			_startTimeStamp = -1;
+			applyGeneticAlgorithm();
+		}
+		else{
+			for (auto &it : _geneticInstances) {
+				it->update(*this, time_elapsed);
+			}
+		}
 	}
-	//_cow->update(*this, time_elapsed);
-	//_rabbit->update(*this, time_elapsed);
+}
+
+void Game::applyGeneticAlgorithm()
+{
+	int geneticSize = _geneticInstances.size();
+	double totalPoints = 0.0;
+	std::vector<int> points;
+	for (size_t i = 0; i < geneticSize; ++i) {
+
+		int point = _geneticInstances[i]->getCow().getPoints() - _geneticInstances[i]->getRabbit().getPoints();
+		points.push_back(point);
+	}
+
+	int minValue = *std::min_element(points.begin(), points.end(), [&](int a, int b) {
+		return a < b;
+	});
+
+	int maxValue = *std::max_element(points.begin(), points.end(), [&](int a, int b) {
+		return a < b;
+	});
+
+	double percLow = 100 / _geneticInstances.size();
+	double percHigh = 100 - percLow;
+	double numerator = maxValue - minValue;
+
+	for (auto &it : points) {
+		if (numerator == 0.0)
+			it = minValue;
+		else
+		it = round(percLow + ((it - minValue) / numerator) * percHigh);
+
+
+		totalPoints += it;
+	}
+
+	std::map<int, double> expectedMapping;
+	std::vector<GameGeneticInstance*> madeIt;
+
+	for (size_t i = 0; i < points.size(); ++i) {
+		double expectedNumber = points[i] / totalPoints * geneticSize;
+		expectedMapping.insert({ i, expectedNumber });
+
+		if (expectedNumber >= 1.0)
+			madeIt.push_back(_geneticInstances[i]);
+	}
+
+	auto bestElement = std::max_element(expectedMapping.begin(), expectedMapping.end(), [&](std::pair<int, double> a, std::pair<int, double> b) {
+		return a.second < b.second;
+	});
+
+	std::cout << "\n\n\nThe best Genetics were: " + _geneticInstances[bestElement->first]->getColorExtention() + "\n";
+	showChances(_geneticInstances[bestElement->first]->getCow());
+
+	while (madeIt.size() < geneticSize) {
+		auto maxElement = std::max_element(expectedMapping.begin(), expectedMapping.end(), [&](std::pair<int, double> a, std::pair<int, double> b) {
+			return (a.second - static_cast<int>(a.second)) < (b.second - static_cast<int>(b.second)); 
+		});
+
+		madeIt.push_back(_geneticInstances[maxElement->first]);
+
+		expectedMapping.erase(maxElement);
+
+	}
+
+	std::vector<GameGeneticInstanceColor> colors;
+	colors.push_back(GameGeneticInstanceColor::RED);
+	colors.push_back(GameGeneticInstanceColor::BLUE);
+	colors.push_back(GameGeneticInstanceColor::YELLOW);
+	colors.push_back(GameGeneticInstanceColor::GREEN);
+
+	_geneticInstances.clear();
+
+	std::cout << "---------------------- New generation ----------------- \n";
+
+	for (size_t i = 0; i < madeIt.size(); ++i)
+	{
+		GameGeneticInstance *child = new GameGeneticInstance(*this, colors[i], madeIt[i]->getCow().getHideChance(), madeIt[i]->getCow().getSeekPillChance(), madeIt[madeIt.size() - (i+1)]->getCow().getSeekWeaponChance(), madeIt[madeIt.size() - (i+1)]->getCow().getFleeChance());
+		_geneticInstances.push_back(child);
+
+		showChances(child->getCow());
+	}
+
+	std::cout << "------------------------ End new generation -----------\n";
+}
+
+void Game::showChances(Cow &cow)
+{
+	std::cout << "Color: " << cow.getGeneticInstance()->getColorExtention() << "\n";
+	std::cout << "HideChance: " << cow.getHideChance() << "\n";
+	std::cout << "SeekPillChance: " << cow.getSeekPillChance() << "\n";
+	std::cout << "SeekWeaponChance: " << cow.getSeekWeaponChance() << "\n";
+	std::cout << "FleeChance: " << cow.getFleeChance() << "\n\n";
 }
 
 void Game::handleEvents()
@@ -95,12 +218,12 @@ void Game::draw()
 	_drawer->render();
 }
 
-void Game::respawnRandom(Vehicle *objectToRespawn) {
+void Game::respawnRandom(Vehicle *objectToRespawn, int xStart, int xEnd, int yStart, int yEnd){
 
 	int x, y;
 
-	x = RandomGenerator::random(0, 800);
-	y = RandomGenerator::random(0, 800);
+	x = RandomGenerator::random(xStart, xEnd);
+	y = RandomGenerator::random(yStart, yEnd);
 
 	objectToRespawn->setPosition(Vector2D(x, y));
 }
