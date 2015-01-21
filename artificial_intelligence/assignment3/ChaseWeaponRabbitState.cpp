@@ -26,6 +26,12 @@ ChaseWeaponRabbitState::~ChaseWeaponRabbitState()
 
 bool ChaseWeaponRabbitState::onMessage(Rabbit *entity, const Telegram &msg, Game &game)
 {
+	switch (msg.msg)
+	{
+	case MessageType::Msg_ChasingCowVisiting:
+		entity->updateSearchWeaponChance(false);
+		return true;
+	}
 	return false;
 }
 

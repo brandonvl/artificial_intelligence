@@ -26,6 +26,13 @@ ChasePillRabbitState::~ChasePillRabbitState()
 
 bool ChasePillRabbitState::onMessage(Rabbit *entity, const Telegram &msg, Game &game)
 {
+	switch (msg.msg)
+	{
+	case MessageType::Msg_ChasingCowVisiting:
+		entity->updateSearchPillChance(false);
+		return true;
+	}
+	return false;
 	return false;
 }
 

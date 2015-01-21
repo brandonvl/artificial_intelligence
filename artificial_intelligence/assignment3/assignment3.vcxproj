@@ -101,6 +101,7 @@
     <ClCompile Include="Pill.cpp" />
     <ClCompile Include="Rabbit.cpp" />
     <ClCompile Include="RandomGenerator.cpp" />
+    <ClCompile Include="RunRabbitState.cpp" />
     <ClCompile Include="Vertex.cpp" />
     <ClCompile Include="SleepingCowState.cpp" />
     <ClCompile Include="WanderingRabbitState.cpp" />
@@ -127,6 +128,7 @@
     <ClInclude Include="MessageDispatcher.h" />
     <ClInclude Include="MessageTypes.h" />
     <ClInclude Include="Pill.h" />
+    <ClInclude Include="RunRabbitState.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateMachine.h" />
     <ClInclude Include="Rabbit.h" />

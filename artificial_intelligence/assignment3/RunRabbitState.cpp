@@ -1,4 +1,4 @@
-#include "WanderingRabbitState.h"
+#include "RunRabbitState.h"
 #include "Rabbit.h"
 #include "Graph.h"
 #include "Game.h"
@@ -15,21 +15,24 @@
 #include "ChasePillRabbitState.h"
 #include "ChaseWeaponRabbitState.h"
 #include "ChaseCowRabbitState.h"
-#include "RunRabbitState.h"
+#include "WanderingRabbitState.h"
 
-WanderingRabbitState::WanderingRabbitState() : State("WanderingRabbitState")
+RunRabbitState::RunRabbitState() : State("RunRabbitState")
 {
 }
 
 
-WanderingRabbitState::~WanderingRabbitState()
+RunRabbitState::~RunRabbitState()
 {
 }
 
-bool WanderingRabbitState::onMessage(Rabbit *entity, const Telegram &msg, Game &game)
+bool RunRabbitState::onMessage(Rabbit *entity, const Telegram &msg, Game &game)
 {
 	switch (msg.msg)
 	{
+	case MessageType::Msg_ChasingCowVisiting:
+		entity->updateRunChance(false);
+		return true;
 	case MessageType::Msg_CowPresent:
 		_receivedChasingCowMessage = true;
 		return true;
@@ -39,24 +42,24 @@ bool WanderingRabbitState::onMessage(Rabbit *entity, const Telegram &msg, Game &
 	return false;
 }
 
-void WanderingRabbitState::enter(Rabbit *entity, Game &game)
+void RunRabbitState::enter(Rabbit *entity, Game &game)
 {
 	game.getDrawer().setColorOverLay(entity->getName(), 0, 70, 255);
 }
 
-void WanderingRabbitState::update(Rabbit *entity, Game &game)
+void RunRabbitState::update(Rabbit *entity, Game &game)
 {
 	if (!lookAround(entity, game)) {
-		wander(entity, game);
+		run(entity, game);
 	}
 }
 
-void WanderingRabbitState::exit(Rabbit *entity, Game &game)
+void RunRabbitState::exit(Rabbit *entity, Game &game)
 {
 
 }
 
-void WanderingRabbitState::wander(Rabbit *entity, Game &game) {
+void RunRabbitState::run(Rabbit *entity, Game &game) {
 
 	// stores the 'safe' fields to move to
 	std::vector<int> candidates, alternatives;
@@ -73,10 +76,10 @@ void WanderingRabbitState::wander(Rabbit *entity, Game &game) {
 					_receivedChasingCowMessage = false;
 
 					Dispatch.dispatchMessage(0.0, entity->getId(), obj->getId(), MessageType::Msg_RabbitPeeking, entity);
-					
+
 					// if there is no cow on the next field or one of the fields surrounding the field
 					if (!_receivedChasingCowMessage) {
-						if(!isNextToCow(entity, game, vertex->getKey())) candidates.push_back(vertex->getKey());
+						if (!isNextToCow(entity, game, vertex->getKey())) candidates.push_back(vertex->getKey());
 						else alternatives.push_back(vertex->getKey());
 					}
 				}
@@ -105,38 +108,18 @@ void WanderingRabbitState::wander(Rabbit *entity, Game &game) {
 
 }
 
-bool WanderingRabbitState::lookAround(Rabbit *entity, Game &game) {
+bool RunRabbitState::lookAround(Rabbit *entity, Game &game) {
 	// should the rabbit be scared (is there a cow next to him)
-	if (isNextToCow(entity, game, entity->getField()->getKey())) {
-		// choose an option based on chances (higher numbers for more likely actions)
-		int option = RandomGenerator::chance({ entity->getRunChance(), entity->getSearchWeaponChance(), entity->getSearchPillChance() });
-
-		switch (option) {
-		case 0: // run
-			std::cout << "Rabbit runs away\n";
-			entity->changeState(&RunRabbitState::instance());
-			entity->update(game);
-			return false;
-
-		case 1: // search weapon
-			std::cout << "Going to search for weapon\n";
-			entity->changeState(&ChaseWeaponRabbitState::instance());
-			entity->update(game);
-			break;
-
-		case 2: // search pill
-			std::cout << "Going to search for pill\n";
-			entity->changeState(&ChasePillRabbitState::instance());
-			entity->update(game);
-			break;
-		}
-		return true;
+	if (!isNextToCow(entity, game, entity->getField()->getKey())) {
+		entity->updateRunChance(true);
+		entity->changeState(&WanderingRabbitState::instance());
+		entity->update(game);
 	}
 
 	return false;
 }
 
-bool WanderingRabbitState::isNextToCow(Rabbit *entity, Game &game, int fieldKey) {
+bool RunRabbitState::isNextToCow(Rabbit *entity, Game &game, int fieldKey) {
 	_receivedChasingCowMessage = false;
 
 	// Loop trough the vectors in the neightbour edges

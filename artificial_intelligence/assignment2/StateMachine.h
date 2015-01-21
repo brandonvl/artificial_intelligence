@@ -45,10 +45,10 @@ public:
 
 	bool handleMessage(const Telegram &msg) const
 	{
-		if (_currentState && _currentState->onMessage(_owner, msg, *_game))
+		if (_globalState && _globalState->onMessage(_owner, msg, *_game))
 			return true;
 
-		if (_globalState && _globalState->onMessage(_owner, msg, *_game))
+		if (_currentState && _currentState->onMessage(_owner, msg, *_game))
 			return true;
 
 		return false;

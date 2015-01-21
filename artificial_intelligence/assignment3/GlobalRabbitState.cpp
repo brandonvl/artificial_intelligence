@@ -31,15 +31,15 @@ bool GlobalRabbitState::onMessage(Rabbit *entity, const Telegram &msg, Game &gam
 			game.respawn(game.getPill());
 			entity->setPillUpgrade(false);
 			entity->updateSearchPillChance(true);
+			return true;
 		}
 		else {
 			std::cout << "The cow caught the rabbit!" << std::endl;
 			Dispatch.dispatchMessage(0.0, entity->getId(), static_cast<Cow*>(msg.extraInfo)->getId(), MessageType::Msg_RabbitCaught, nullptr);
 			
 			game.respawn(*entity);
-			entity->updateRunChance(false);
 		}
-		return true;
+		return false;
 	case MessageType::Msg_PillUpgrade:
 		std::cout << "Pill replied, Rabbit now has pill! Lets wander" << std::endl;
 		entity->changeState(&WanderingRabbitState::instance());

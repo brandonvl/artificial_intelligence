@@ -129,6 +129,9 @@
     <ClCompile Include="ChaseCowRabbitState.cpp">
       <Filter>Source Files\states\rabbitStates</Filter>
     </ClCompile>
+    <ClCompile Include="RunRabbitState.cpp">
+      <Filter>Source Files\states\rabbitStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StateMachine.h">
@@ -219,6 +222,9 @@
       <Filter>Header Files\states\cowStates</Filter>
     </ClInclude>
     <ClInclude Include="ChaseCowRabbitState.h">
+      <Filter>Header Files\states\rabbitStates</Filter>
+    </ClInclude>
+    <ClInclude Include="RunRabbitState.h">
       <Filter>Header Files\states\rabbitStates</Filter>
     </ClInclude>
   </ItemGroup>
