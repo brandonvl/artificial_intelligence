@@ -19,10 +19,10 @@ public:
 	void setPill(bool hasPill = true) { _hasPill = hasPill; }
 	void setWeapon(bool hasWeapon = true) { _hasWeapon = hasWeapon; }
 	void setInvulnerable(bool invulnerable = true) { _invulnerable = invulnerable; }
-	int getHideChance() { return _hideChance; }
-	int getSeekPillChance() { return _seekPillChance; }
-	int getSeekWeaponChance() { return _seekWeaponChance; }
-	int getFleeChance() { return _fleeChance; }
+	double getHideChance() { return _hideChance; }
+	double getSeekPillChance() { return _seekPillChance; }
+	double getSeekWeaponChance() { return _seekWeaponChance; }
+	double getFleeChance() { return _fleeChance; }
 	void normalizeChancesTo100Scale();
 	StateMachine<Cow> &getStateMachine() { return *_stateMachine; }
 	void respawn();

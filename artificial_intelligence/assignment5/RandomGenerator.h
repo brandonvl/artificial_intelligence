@@ -9,6 +9,7 @@ class RandomGenerator
 {
 public:
 	static int random(const int min, const int max);
+	static double random(const double min, const double max);
 
 	template <typename T>
 	static const T &randomFromVector(const std::vector<T> &vect) {
@@ -64,14 +65,39 @@ public:
 		return 0;
 	}
 
+	static const int chance(std::initializer_list<double> chances) {
+
+		// calculate total and generate random
+		double total = 0, start = 0, i = 0;
+		for (auto chance : chances) total += chance;
+		double rand = RandomGenerator::random(0.0, total - 1);
+
+		// determine wich item has 'won'
+		for (auto chance : chances) {
+			// catch for filtering 0 values
+			if (chance > 0.0) {
+				if (rand >= start && rand < start + chance) {
+					return i;
+				}
+				start += chance;
+			}
+			i++;
+		}
+
+		// default: 0 wins
+		return 0;
+	}
+
 private:
 	RandomGenerator();
 	virtual ~RandomGenerator();
 	std::uniform_int_distribution<int> &getOrCreateDist(const int min, const int max);
+	std::uniform_real_distribution<double> &RandomGenerator::getOrCreateDist(const double min, const double max);
 	static RandomGenerator &instance();
 	
 	std::random_device _dev;
 	std::default_random_engine _dre;
 	std::map<std::string, std::uniform_int_distribution<int>*> _distMap;
+	std::map<std::string, std::uniform_real_distribution<double>*>_disDouble;
 };
 

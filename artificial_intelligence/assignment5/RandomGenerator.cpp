@@ -22,6 +22,17 @@ int RandomGenerator::random(int min, int max) {
 	return instance().getOrCreateDist(min, max)(instance()._dre);
 }
 
+double RandomGenerator::random(const double min, const double max) {
+	return instance().getOrCreateDist(min, max)(instance()._dre);
+}
+
+std::uniform_real_distribution<double> &RandomGenerator::getOrCreateDist(const double min, const double max) {
+	std::string key = std::to_string(min) + "_" + std::to_string(max);
+	if (!_disDouble.count(key))
+		_disDouble.insert(std::make_pair(key, new std::uniform_real_distribution<double>(min, max)));
+	return *_disDouble[key];
+}
+
 std::uniform_int_distribution<int> &RandomGenerator::getOrCreateDist(const int min, const int max) {
 	std::string key = std::to_string(min) + "_" + std::to_string(max);
 	if (!_distMap.count(key)) 

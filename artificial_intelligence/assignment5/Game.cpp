@@ -181,7 +181,32 @@ void Game::applyGeneticAlgorithm()
 
 	for (size_t i = 0; i < madeIt.size(); ++i)
 	{
-		GameGeneticInstance *child = new GameGeneticInstance(*this, colors[i], madeIt[i]->getCow().getHideChance(), madeIt[i]->getCow().getSeekPillChance(), madeIt[madeIt.size() - (i+1)]->getCow().getSeekWeaponChance(), madeIt[madeIt.size() - (i+1)]->getCow().getFleeChance());
+		int splitPos = RandomGenerator::random(1, geneticSize - 1);
+		double hideChance, seekPillChance, seekWeaponChance, fleeChance;
+
+		switch (splitPos)
+		{
+			case 1:
+				hideChance = madeIt[i]->getCow().getHideChance();
+				seekPillChance = madeIt[madeIt.size() - (i + 1)]->getCow().getSeekPillChance();
+				seekWeaponChance = madeIt[madeIt.size() - (i + 1)]->getCow().getSeekWeaponChance();
+				fleeChance = madeIt[madeIt.size() - (i + 1)]->getCow().getFleeChance();
+				break;
+			case 2:
+				hideChance = madeIt[i]->getCow().getHideChance();
+				seekPillChance = madeIt[i]->getCow().getSeekPillChance();
+				seekWeaponChance = madeIt[madeIt.size() - (i + 1)]->getCow().getSeekWeaponChance();
+				fleeChance = madeIt[madeIt.size() - (i + 1)]->getCow().getFleeChance();
+				break;
+			case 3:
+				hideChance = madeIt[i]->getCow().getHideChance();
+				seekPillChance = madeIt[i]->getCow().getSeekPillChance();
+				seekWeaponChance = madeIt[i]->getCow().getSeekWeaponChance();
+				fleeChance = madeIt[madeIt.size() - (i + 1)]->getCow().getFleeChance();
+				break;
+		}
+
+		GameGeneticInstance *child = new GameGeneticInstance(*this, colors[i],hideChance,seekPillChance,seekWeaponChance,fleeChance);
 		_geneticInstances.push_back(child);
 
 		showChances(child->getCow());

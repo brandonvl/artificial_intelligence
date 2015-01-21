@@ -6,7 +6,7 @@
 #include "Game.h"
 #include "EntityManager.h"
 
-GameGeneticInstance::GameGeneticInstance(Game &game, GameGeneticInstanceColor color, int hideChance, int seekPillChance, int seekWeaponChance, int fleeChance)
+GameGeneticInstance::GameGeneticInstance(Game &game, GameGeneticInstanceColor color, double hideChance, double seekPillChance, double seekWeaponChance, double fleeChance)
 {
 	switch (color)
 	{
